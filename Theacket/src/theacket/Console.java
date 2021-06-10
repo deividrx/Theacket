@@ -1,8 +1,7 @@
 package theacket;
 
 import static consoleColor.Ansi.colorize;
-import static consoleColor.Attribute.BLUE_TEXT;
-import static consoleColor.Attribute.GREEN_TEXT;
+import static consoleColor.Attribute.*;
 
 import java.util.Scanner;
 
@@ -29,7 +28,7 @@ public class Console {
         		System.out.println("Entrando no modo adm!");
         		break;
         	default:
-        		ConsoleMessage.erroMes("Comando \"" + comando + "\" inválido!");
+        		erroMes("Comando \"" + comando + "\" inválido!");
         	}
         	
         } while (!comando.equals("sair"));
@@ -47,6 +46,10 @@ public class Console {
 				"  \\_/  |_| |_| \\___| \\__,_| \\___||_|\\_\\\\___| \\__|\n";
 	    return logo;
 		
+	}
+	
+	public static void erroMes(String texto) {
+		System.out.println(colorize("[ERRO] " + texto, RED_TEXT()));
 	}
 	
 	public static String getComandosModo() {
