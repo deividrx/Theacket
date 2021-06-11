@@ -13,7 +13,8 @@ public class Console {
 		
 		System.out.println(getLogo() + "\n" + getModos());
 		String modo;
-      
+		System.out.println("" + Ingresso.getPreco("pa"));
+		
         do {
         	System.out.print(colorize("[modo]", YELLOW_TEXT()) + " Informe em qual modo deseja entrar: ");
         	modo = userInput.next();
@@ -23,6 +24,7 @@ public class Console {
         	}
         	
         } while (!modo.equals("cli") && !modo.equals("adm") && !modo.equals("sair"));
+        
         
         if (!modo.equals("sair")) {
         	String comando;
@@ -81,5 +83,26 @@ public class Console {
 		System.out.println(colorize("[ERRO] " + texto, RED_TEXT()));
 	}
 	
+	public static void mostraPoltrona(int[][] plateia) {
+		int cadeira = 1;
+		for (int i = 0; i < plateia.length; i++) {
+			for (int j = 0; j < plateia[0].length; j++) {
+				if (plateia[i][j] == 0) {
+					System.out.print(colorize("[" + cadeira + Character.toUpperCase(geraLetra(i)) + "]", GREEN_BACK()));
+				} else {
+					System.out.print(colorize("[" + cadeira + Character.toUpperCase(geraLetra(i)) + "]", RED_BACK()));
+				}
+				cadeira++;
+				System.out.print("\t");
+			}
+			System.out.println();
+			cadeira = 1;
+		}
+	}
+	
+	public static char geraLetra(int num) {
+		char[] alfabeto = {'a','b','c','d','e','f','g','h','i','j','k','l','m','n','o','p','q','r','s','t','u','v','w','x','y','z'};
+		return alfabeto[num];
+	}
 
 }
