@@ -75,7 +75,6 @@ public class Console {
 		}
 		input = userInput.nextInt();
 		return input;
-		
 	}
 	
 	public static void erroMes(String texto) {
