@@ -25,6 +25,7 @@ public class Console {
         	
         } while (!modo.equals("cli") && !modo.equals("adm") && !modo.equals("sair"));
         
+         
         
         if (!modo.equals("sair")) {
         	String comando;
