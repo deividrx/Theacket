@@ -15,12 +15,19 @@ public class Console {
 		String modo;
 		System.out.println("" + Ingresso.getPreco("pa"));
 		
+		int[][] teste = new int[5][5];
+		mostraPoltrona(teste);
+		
+		int n;
+		System.out.println("um numero: ");
+		n = validaEntradaInt("Entrada invÃ¡lida");
+		
         do {
         	System.out.print(colorize("[modo]", YELLOW_TEXT()) + " Informe em qual modo deseja entrar: ");
         	modo = userInput.next();
         	
         	if (!modo.equals("cli") && !modo.equals("adm") && !modo.equals("sair")) {
-        		erroMes("Modo \"" + modo + "\" inválido!");
+        		erroMes("Modo \"" + modo + "\" invÃ¡lido!");
         	}
         	
         } while (!modo.equals("cli") && !modo.equals("adm") && !modo.equals("sair"));
@@ -44,7 +51,7 @@ public class Console {
         			System.out.println("Entrando no modo adm!");
         			break;
         		default:
-        			erroMes("Comando \"" + comando + "\" inválido!");
+        			erroMes("Comando \"" + comando + "\" invï¿½lido!");
         		}
         		
         	} while (!comando.equals("sair"));
@@ -72,9 +79,9 @@ public class Console {
 	
 	public static int validaEntradaInt(String mensagem) {
 		int input;
-		userInput.next();
 		while (!userInput.hasNextInt()) {
 			erroMes(mensagem);
+			userInput.next();
 		}
 		input = userInput.nextInt();
 		return input;
@@ -86,24 +93,32 @@ public class Console {
 	
 	public static void mostraPoltrona(int[][] plateia) {
 		int cadeira = 1;
+		
+		System.out.println("|     palco     |\n" + 
+		                   " \\=============/\n");
+		
 		for (int i = 0; i < plateia.length; i++) {
 			for (int j = 0; j < plateia[0].length; j++) {
 				if (plateia[i][j] == 0) {
-					System.out.print(colorize("[" + cadeira + Character.toUpperCase(geraLetra(i)) + "]", GREEN_BACK()));
+					//System.out.print(colorize("[" + cadeira + Character.toUpperCase(geraLetra(i)) + "]", BLACK_TEXT() ,GREEN_BACK()));
+					System.out.printf("%s ", colorize("[" + cadeira + Character.toUpperCase(geraLetra(i)) + "]", BLACK_TEXT() ,GREEN_BACK()));
 				} else {
 					System.out.print(colorize("[" + cadeira + Character.toUpperCase(geraLetra(i)) + "]", RED_BACK()));
 				}
 				cadeira++;
-				System.out.print("\t");
+				//System.out.print("\t"); 
 			}
 			System.out.println();
 			cadeira = 1;
 		}
 	}
-	
+
+	//teste
+
+
 	public static char geraLetra(int num) {
 		char[] alfabeto = {'a','b','c','d','e','f','g','h','i','j','k','l','m','n','o','p','q','r','s','t','u','v','w','x','y','z'};
 		return alfabeto[num];
 	}
-
+	
 }
