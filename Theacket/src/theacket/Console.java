@@ -17,8 +17,7 @@ public class Console {
 			mostraPoltrona(teste);
 			String poltrona;
 			System.out.print("Informe qual poltrona deseja: ");
-			poltrona = userInput.next().toUpperCase();
-			System.out.println(poltrona);
+			poltrona = userInput.next();
 			teste[returnIndexLine(poltrona)][returnIndexColumn(poltrona)] = 1;
 
 		}
@@ -110,6 +109,7 @@ public class Console {
 	}
 
 	public static int returnIndexLine(String poltrona) {
+		poltrona = poltrona.toUpperCase();
 		char letra = poltrona.charAt(poltrona.length() - 1);
 		char[] alfabeto = {'a','b','c','d','e','f','g','h','i','j','k','l','m','n','o','p','q','r','s','t','u','v','w','x','y','z'};
 		int indexLine = 0;
@@ -122,6 +122,7 @@ public class Console {
 	}
 
 	public static int returnIndexColumn(String poltrona) {
+		poltrona = poltrona.toUpperCase();
 		return Integer.parseInt(poltrona.substring(0, poltrona.length() - 1)) - 1;
 	}
 }
