@@ -14,9 +14,11 @@ public class Console {
 		System.out.println(getLogo() + "\n" + getModos());
 		String modo;
 		System.out.println("" + Ingresso.getPreco("pa"));
-		
-		int[][] teste = new int[5][5];
+
+		System.out.println("Plateia A");
+		int[][] teste = new int[10][10];
 		mostraPoltrona(teste);
+		System.out.println("Informe a poltrona na qual quer sentar: ");
 		
 		int n;
 		System.out.println("um numero: ");
@@ -76,7 +78,11 @@ public class Console {
 				"sair    sair do programa\n";
 		return text;
 	}
-	
+
+	public static void erroMes(String texto) {
+		System.out.println(colorize("[ERRO] " + texto, RED_TEXT()));
+	}
+
 	public static int validaEntradaInt(String mensagem) {
 		int input;
 		while (!userInput.hasNextInt()) {
@@ -86,39 +92,34 @@ public class Console {
 		input = userInput.nextInt();
 		return input;
 	}
-	
-	public static void erroMes(String texto) {
-		System.out.println(colorize("[ERRO] " + texto, RED_TEXT()));
-	}
-	
-	public static void mostraPoltrona(int[][] plateia) {
-		int cadeira = 1;
-		
-		System.out.println("|     palco     |\n" + 
-		                   " \\=============/\n");
-		
-		for (int i = 0; i < plateia.length; i++) {
-			for (int j = 0; j < plateia[0].length; j++) {
-				if (plateia[i][j] == 0) {
-					//System.out.print(colorize("[" + cadeira + Character.toUpperCase(geraLetra(i)) + "]", BLACK_TEXT() ,GREEN_BACK()));
-					System.out.printf("%s ", colorize("[" + cadeira + Character.toUpperCase(geraLetra(i)) + "]", BLACK_TEXT() ,GREEN_BACK()));
-				} else {
-					System.out.print(colorize("[" + cadeira + Character.toUpperCase(geraLetra(i)) + "]", RED_BACK()));
-				}
-				cadeira++;
-				//System.out.print("\t"); 
-			}
-			System.out.println();
-			cadeira = 1;
-		}
-	}
-
-	//teste
-
 
 	public static char geraLetra(int num) {
 		char[] alfabeto = {'a','b','c','d','e','f','g','h','i','j','k','l','m','n','o','p','q','r','s','t','u','v','w','x','y','z'};
 		return alfabeto[num];
 	}
-	
+
+	public static void mostraPoltrona(int[][] plateia) {
+		int cadeira = 1;
+		for (int i = 0; i < plateia.length; i++) {
+			for (int j = 0; j < plateia[0].length; j++) {
+				if (plateia[i][j] == 0) {
+					System.out.printf("%s  ", colorize("[" + cadeira + Character.toUpperCase(geraLetra(i)) + "]", BLACK_TEXT() ,GREEN_BACK()));
+				} else {
+					System.out.printf("%s  ", colorize("[" + cadeira + Character.toUpperCase(geraLetra(i)) + "]", RED_BACK()));
+				}
+				cadeira++;
+			}
+			System.out.println();
+			cadeira = 1;
+		}
+		System.out.println("\nLegenda: ");
+		System.out.println(colorize("    ", RED_BACK()) + " Ocupado | " + colorize("    ", GREEN_BACK()) + " Livre");
+	}
+
+	public static int recebePoltrona(String poltrona) {
+
+
+		return 0;
+	}
+
 }
