@@ -9,29 +9,42 @@ public class Console {
 	public static Scanner userInput = new Scanner(System.in);
 	
 	public static void main(String[] args) {
-		
 		System.out.print(getLogo() + "\n" + getModos());
 		String modo;
 
-        do {
-        	System.out.print(colorize("[modo]", YELLOW_TEXT()) + " Informe em qual modo deseja entrar: ");
-        	modo = userInput.next();
+		int[][] teste = new int[10][5];
+		for (int i = 0; i < 6; i++) {
+			mostraPoltrona(teste);
+			String poltrona;
+			System.out.print("Informe qual poltrona deseja: ");
+			poltrona = userInput.next().toUpperCase();
+			System.out.println(poltrona);
+			teste[returnIndexLine(poltrona)][returnIndexColumn(poltrona)] = 1;
 
-        	if (!modo.equals("cli") && !modo.equals("adm") && !modo.equals("sair")) {
-        		erroMes("Modo \"" + modo + "\" inválido!");
-        	}
+		}
+		do {
+			System.out.print(colorize("[modo]", YELLOW_TEXT()) + " Informe em qual modo deseja entrar: ");
+			modo = userInput.next();
 
-        } while (!modo.equals("cli") && !modo.equals("adm") && !modo.equals("sair"));
+			if (!modo.equals("cli") && !modo.equals("adm") && !modo.equals("sair")) {
+				errorMes("Modo \"" + modo + "\" inválido!");
+			}
 
-        if (modo.equals("cli")) {
-        	String comando;
-        	
+		} while (!modo.equals("cli") && !modo.equals("adm") && !modo.equals("sair"));
+
+		String comando;
+		if (modo.equals("cli")) {
+
         	do {
+				System.out.println(getComandosCli());
         		System.out.print(colorize("cliente", GREEN_TEXT()) + "@" + colorize("Theacket", BLUE_TEXT()) + "~$ ");
         		comando = userInput.next();
         		switch (comando) {
-        		default:
-        			erroMes("Comando \"" + comando + "\" inválido!");
+					case "comin":
+						System.out.println("");
+						break;
+        			default:
+        				errorMes("Comando \"" + comando + "\" inválido!");
         		}
         		
         	} while (!comando.equals("sair"));
@@ -54,36 +67,38 @@ public class Console {
 				"sair    sair do programa\n";
 	}
 
-	public static void erroMes(String text) {
+	public static String getComandosCli() {
+		return "Modos:\n" +
+				"comin       comprar ingresso\n" +
+				"CustPol     ver custo das poltronas\n" +
+				"sair        sair do programa\n";
+	}
+
+	public static void errorMes(String text) {
 		System.out.println(colorize("[ERRO] " + text, RED_TEXT()));
 	}
 
 	public static int validaEntradaInt(String mensagem) {
 		int input;
 		while (!userInput.hasNextInt()) {
-			erroMes(mensagem);
+			errorMes(mensagem);
 			userInput.next();
 		}
 		input = userInput.nextInt();
 		return input;
 	}
 
-
-
-
-	public static char geraLetra(int num) {
-		char[] alfabeto = {'a','b','c','d','e','f','g','h','i','j','k','l','m','n','o','p','q','r','s','t','u','v','w','x','y','z'};
-		return alfabeto[num];
-	}
-
 	public static void mostraPoltrona(int[][] plateia) {
 		int cadeira = 1;
+		char[] alfabeto = {'a','b','c','d','e','f','g','h','i','j','k','l','m','n','o','p','q','r','s','t','u','v','w','x','y','z'};
 		for (int i = 0; i < plateia.length; i++) {
 			for (int j = 0; j < plateia[0].length; j++) {
+				String text = "[" + cadeira + Character.toUpperCase(alfabeto[i]) + "]";
+
 				if (plateia[i][j] == 0) {
-					System.out.printf("%s  ", colorize("[" + cadeira + Character.toUpperCase(geraLetra(i)) + "]", BLACK_TEXT() ,GREEN_BACK()));
+					System.out.printf("%s  ", colorize(text, BLACK_TEXT() ,GREEN_BACK()));
 				} else {
-					System.out.printf("%s  ", colorize("[" + cadeira + Character.toUpperCase(geraLetra(i)) + "]", RED_BACK()));
+					System.out.printf("%s  ", colorize(text, RED_BACK()));
 				}
 				cadeira++;
 			}
@@ -94,10 +109,19 @@ public class Console {
 		System.out.println(colorize("    ", RED_BACK()) + " Ocupado | " + colorize("    ", GREEN_BACK()) + " Livre");
 	}
 
-	public static int recebePoltrona(String poltrona) {
-
-
-		return 0;
+	public static int returnIndexLine(String poltrona) {
+		char letra = poltrona.charAt(poltrona.length() - 1);
+		char[] alfabeto = {'a','b','c','d','e','f','g','h','i','j','k','l','m','n','o','p','q','r','s','t','u','v','w','x','y','z'};
+		int indexLine = 0;
+		for (int i = 0; i < alfabeto.length; i++) {
+			if (letra == Character.toUpperCase(alfabeto[i])) {
+				indexLine = i;
+			}
+		}
+		return indexLine;
 	}
 
+	public static int returnIndexColumn(String poltrona) {
+		return Integer.parseInt(poltrona.substring(0, poltrona.length() - 1)) - 1;
+	}
 }
