@@ -7,20 +7,20 @@ import java.util.Scanner;
 public class Console {
 
 	public static Scanner userInput = new Scanner(System.in);
-	
+	public static char[] alfabeto = {'a','b','c','d','e','f','g','h','i','j','k','l','m','n','o','p','q','r','s','t','u','v','w','x','y','z'};
+
 	public static void main(String[] args) {
 		System.out.print(getLogo() + "\n" + getModos());
 		String modo;
 
 		int[][] teste = new int[10][5];
-		for (int i = 0; i < 6; i++) {
+		for (int i = 0; i < 20; i++) {
 			mostraPoltrona(teste);
-			String poltrona;
-			System.out.print("Informe qual poltrona deseja: ");
-			poltrona = userInput.next();
-			teste[returnIndexLine(poltrona)][returnIndexColumn(poltrona)] = 1;
+			inputPoltrona(teste,"Informe uma poltrona: " );
 
 		}
+
+
 		do {
 			System.out.print(colorize("[modo]", YELLOW_TEXT()) + " Informe em qual modo deseja entrar: ");
 			modo = userInput.next();
@@ -45,42 +45,19 @@ public class Console {
         			default:
         				errorMes("Comando \"" + comando + "\" inválido!");
         		}
-        		
+
         	} while (!comando.equals("sair"));
         }
 	}
-	
-	public static String getLogo() {
-		return " _____  _                         _          _   \n" +
-				"|_   _|| |                       | |        | |  \n" +
-				"  | |  | |__    ___   __ _   ___ | | __ ___ | |_ \n" +
-				"  | |  | '_ \\  / _ \\ / _` | / __|| |/ // _ \\| __|\n" +
-				"  | |  | | | ||  __/| (_| || (__ |   <|  __/| |_ \n" +
-				"  \\_/  |_| |_| \\___| \\__,_| \\___||_|\\_\\\\___| \\__|\n";
-	}
-	
-	public static String getModos() {
-		return "Modos:\n" +
-				"cli     entrar no modo cliente\n" +
-				"adm     entrar no modo administrativo\n" +
-				"sair    sair do programa\n";
-	}
-
-	public static String getComandosCli() {
-		return "Modos:\n" +
-				"comin       comprar ingresso\n" +
-				"CustPol     ver custo das poltronas\n" +
-				"sair        sair do programa\n";
-	}
 
 	public static void errorMes(String text) {
-		System.out.println(colorize("[ERRO] " + text, RED_TEXT()));
+		System.out.print(colorize("[ERRO] " + text, RED_TEXT()));
 	}
 
-	public static int validaEntradaInt(String mensagem) {
+	public static int validaEntradaInt() {
 		int input;
 		while (!userInput.hasNextInt()) {
-			errorMes(mensagem);
+			errorMes("Entrada inválida!");
 			userInput.next();
 		}
 		input = userInput.nextInt();
@@ -89,7 +66,6 @@ public class Console {
 
 	public static void mostraPoltrona(int[][] plateia) {
 		int cadeira = 1;
-		char[] alfabeto = {'a','b','c','d','e','f','g','h','i','j','k','l','m','n','o','p','q','r','s','t','u','v','w','x','y','z'};
 		for (int i = 0; i < plateia.length; i++) {
 			for (int j = 0; j < plateia[0].length; j++) {
 				String text = "[" + cadeira + Character.toUpperCase(alfabeto[i]) + "]";
@@ -108,21 +84,80 @@ public class Console {
 		System.out.println(colorize("    ", RED_BACK()) + " Ocupado | " + colorize("    ", GREEN_BACK()) + " Livre");
 	}
 
-	public static int returnIndexLine(String poltrona) {
-		poltrona = poltrona.toUpperCase();
-		char letra = poltrona.charAt(poltrona.length() - 1);
-		char[] alfabeto = {'a','b','c','d','e','f','g','h','i','j','k','l','m','n','o','p','q','r','s','t','u','v','w','x','y','z'};
-		int indexLine = 0;
-		for (int i = 0; i < alfabeto.length; i++) {
-			if (letra == Character.toUpperCase(alfabeto[i])) {
-				indexLine = i;
+	public static void inputPoltrona(int[][] plateia, String text) {
+		boolean val;
+		do {
+			System.out.print(text);
+			String poltrona = userInput.next().toUpperCase();
+
+			if (poltrona.length() < 2) {
+				errorMes("Poltrona inválida!");
+				val = false;
+			} else {
+				String num = poltrona.substring(0, poltrona.length() - 1);
+				char letra = poltrona.charAt(poltrona.length() - 1);
+				int indexLine = 0;
+				int indexColumn;
+				Scanner sc = new Scanner(num);
+
+				for (int i = 0; i < alfabeto.length; i++) {
+					if (letra == Character.toUpperCase(alfabeto[i])) {
+						indexLine = i;
+					}
+				}
+
+				if (indexLine > (plateia.length - 1)) {
+					errorMes("Poltrona inválida!");
+					val = false;
+				} else if (!sc.hasNextInt()) {
+					errorMes("Poltrona inválida!");
+					val = false;
+					sc.next();
+				} else {
+					indexColumn = Integer.parseInt(num);
+					indexColumn--;
+					sc.next();
+
+					if (indexColumn > plateia[0].length) {
+						errorMes("Poltrona inválida!");
+						val = false;
+					} else {
+						if (plateia[indexLine][indexColumn] == 0) {
+							plateia[indexLine][indexColumn] = 1;
+							val = true;
+						} else {
+							errorMes("Poltrona já ocupada!");
+							val = false;
+						}
+ 					}
+				}
+				sc.close();
 			}
-		}
-		return indexLine;
+			System.out.println();
+		} while (!val);
 	}
 
-	public static int returnIndexColumn(String poltrona) {
-		poltrona = poltrona.toUpperCase();
-		return Integer.parseInt(poltrona.substring(0, poltrona.length() - 1)) - 1;
+	public static String getLogo() {
+		return " _____  _                         _          _   \n" +
+				"|_   _|| |                       | |        | |  \n" +
+				"  | |  | |__    ___   __ _   ___ | | __ ___ | |_ \n" +
+				"  | |  | '_ \\  / _ \\ / _` | / __|| |/ // _ \\| __|\n" +
+				"  | |  | | | ||  __/| (_| || (__ |   <|  __/| |_ \n" +
+				"  \\_/  |_| |_| \\___| \\__,_| \\___||_|\\_\\\\___| \\__|\n";
 	}
+
+	public static String getModos() {
+		return "Modos:\n" +
+				"cli     entrar no modo cliente\n" +
+				"adm     entrar no modo administrativo\n" +
+				"sair    sair do programa\n";
+	}
+
+	public static String getComandosCli() {
+		return "Modos:\n" +
+				"comin       comprar ingresso\n" +
+				"CustPol     ver custo das poltronas\n" +
+				"sair        sair do programa\n";
+	}
+
 }
