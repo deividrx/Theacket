@@ -4,6 +4,8 @@ import java.util.InputMismatchException;
 
 public class Cliente {
 
+	public static int[][] plateiaA = new int[5][5];
+
 	public static boolean validaCPF(String CPF) {
 	    
 		if (CPF.equals("00000000000") ||
