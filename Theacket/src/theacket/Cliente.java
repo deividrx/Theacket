@@ -6,7 +6,7 @@ public class Cliente {
 
 	public static int epCam = 10;
 	public static int epfrisa = 5;
-	public static int[][] plateiaA = new int[5][5];
+	public static int[][] plateiaA = new int[1][2];
 	public static int[][] plateiaB = new int[10][10];
 	public static int[][] BalcaoNobre = new int[5][10];
 	public static int[][] cam1 = new int[1][epCam];

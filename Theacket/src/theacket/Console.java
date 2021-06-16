@@ -90,27 +90,30 @@ public class Console {
 		do {
 			switch (area) {
 				case 1:
-					System.out.println(colorize("#Plateia A:", title));
-					mostraPoltrona(Cliente.plateiaA);
-					inputPoltrona(Cliente.plateiaA);
 					if (Cliente.matrizIsFull(Cliente.plateiaA)) {
 						val = false;
+					} else {
+						System.out.println(colorize("#Plateia A:", title));
+						mostraPoltrona(Cliente.plateiaA);
+						inputPoltrona(Cliente.plateiaA);
 					}
 					break;
 				case 2:
-					System.out.println(colorize("#Plateia B:", title));
-					mostraPoltrona(Cliente.plateiaB);
-					inputPoltrona(Cliente.plateiaB);
 					if (Cliente.matrizIsFull(Cliente.plateiaB)) {
 						val = false;
+					} else {
+						System.out.println(colorize("#Plateia B:", title));
+						mostraPoltrona(Cliente.plateiaB);
+						inputPoltrona(Cliente.plateiaB);
 					}
 					break;
 				case 5:
-					System.out.println(colorize("#Balcão Nobre:", title));
-					mostraPoltrona(Cliente.BalcaoNobre);
-					inputPoltrona(Cliente.BalcaoNobre);
 					if (Cliente.matrizIsFull(Cliente.BalcaoNobre)) {
 						val = false;
+					} else {
+						System.out.println(colorize("#Balcão Nobre:", title));
+						mostraPoltrona(Cliente.BalcaoNobre);
+						inputPoltrona(Cliente.BalcaoNobre);
 					}
 					break;
 			}
@@ -125,6 +128,7 @@ public class Console {
 				}
 			} else {
 				avisoMes("Área cheia!\n");
+				escolha = 'N';
 			}
 
 		} while (escolha == 'S');
