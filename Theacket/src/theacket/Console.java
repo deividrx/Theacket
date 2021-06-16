@@ -26,8 +26,12 @@ public class Console {
 				case "comin":
 					compraIngresso();
 					break;
+					
+				case "custPol":
+					custoPoltrona();
+					break;
 				case "sair":
-					System.out.println("Saindo do programa....");
+					System.out.println(colorize("Saindo do programa....", YELLOW_TEXT(), ITALIC()));
 					break;
 				case "ajuda":
 					imprimiComandos();
@@ -132,6 +136,14 @@ public class Console {
 			}
 
 		} while (escolha == 'S');
+	}
+	
+	public static void custoPoltrona() {
+		System.out.println("Poltrona Plateia A:    | R$40,00");
+		System.out.println("Poltrona Plateia B:    | R$60,00");
+		System.out.println("Poltrona Camarote:     | R$80,00");
+		System.out.println("Poltrona Frisa:        | R$120,00");
+		System.out.println("Poltrona Balcão Nobre: | R$250,00");
 	}
 
 	public static void errorMes(String text) {
