@@ -53,42 +53,78 @@ public class Console {
 
 		mostraArea();
 		int area;
+		boolean val = true;
 		do {
+			String areaInvalid = "Área cheia!\n";
 			System.out.print(colorize("[ÁREA]", CYAN_TEXT()) + " Informe a área desejada: ");
 			area = validaEntradaInt();
-
-			if (area != 1 && area != 2 && area != 3 && area != 4 && area != 5) {
-				errorMes("Área \"" + area + "\" inválida!\n");
+			switch (area) {
+				case 1:
+					if (Cliente.matrizIsFull(Cliente.plateiaA)) {
+					 errorMes(areaInvalid);
+					 val = false;
+					}
+					break;
+				case 2:
+					if (Cliente.matrizIsFull(Cliente.plateiaB)) {
+						errorMes(areaInvalid);
+						val = false;
+					}
+					break;
+				case 5:
+					if (Cliente.matrizIsFull(Cliente.BalcaoNobre)) {
+						errorMes(areaInvalid);
+						val = false;
+					}
+					break;
+				default:
+					errorMes("Área \"" + area + "\" inválida!\n");
+					val = false;
 			}
 
-		} while (area != 1 && area != 2 && area != 3 && area != 4 && area != 5);
 
-		char escolha;
+		} while (!val);
+
+		char escolha = 'N';
+		val = true;
 		do {
 			switch (area) {
 				case 1:
 					System.out.println(colorize("#Plateia A:", title));
 					mostraPoltrona(Cliente.plateiaA);
 					inputPoltrona(Cliente.plateiaA);
+					if (Cliente.matrizIsFull(Cliente.plateiaA)) {
+						val = false;
+					}
 					break;
 				case 2:
 					System.out.println(colorize("#Plateia B:", title));
 					mostraPoltrona(Cliente.plateiaB);
 					inputPoltrona(Cliente.plateiaB);
+					if (Cliente.matrizIsFull(Cliente.plateiaB)) {
+						val = false;
+					}
 					break;
 				case 5:
 					System.out.println(colorize("#Balcão Nobre:", title));
 					mostraPoltrona(Cliente.BalcaoNobre);
 					inputPoltrona(Cliente.BalcaoNobre);
+					if (Cliente.matrizIsFull(Cliente.BalcaoNobre)) {
+						val = false;
+					}
 					break;
 			}
 
-			System.out.print("Deseja comprar mais poltronas dessa área: [s/n] ");
-			escolha = Character.toUpperCase(userInput.next().charAt(0));
-
-			while (escolha != 'S' && escolha != 'N') {
-				errorMes("Entrada inválida! Informe novamente: ");
+			if (val) {
+				System.out.print("Deseja comprar mais poltronas dessa área: [s/n] ");
 				escolha = Character.toUpperCase(userInput.next().charAt(0));
+
+				while (escolha != 'S' && escolha != 'N') {
+					errorMes("Entrada inválida! Informe novamente: ");
+					escolha = Character.toUpperCase(userInput.next().charAt(0));
+				}
+			} else {
+				avisoMes("Área cheia!\n");
 			}
 
 		} while (escolha == 'S');
@@ -96,6 +132,10 @@ public class Console {
 
 	public static void errorMes(String text) {
 		System.out.print(colorize("[ERRO] " + text, RED_TEXT()));
+	}
+
+	public static void avisoMes(String text) {
+		System.out.print(colorize("[AVISO] " + text, YELLOW_TEXT()));
 	}
 
 	public static int validaEntradaInt() {
@@ -190,27 +230,27 @@ public class Console {
 
 	public static void mostraArea() {
 		System.out.println(colorize("#Menu Áreas:", title));
-		String text = " ";
+		String text = "";
 		if (Cliente.matrizIsFull(Cliente.plateiaA)) {
-			text += colorize("[1] Plateia A", RED_BACK());
+			text += colorize(" [1] Plateia A ", RED_BACK());
 		} else {
-			text += colorize("[1] Plateia A", BLACK_TEXT(), GREEN_BACK());
+			text += colorize(" [1] Plateia A ", BLACK_TEXT(), GREEN_BACK());
 		}
-		text += "   | ";
+		text += "\n";
 		if (Cliente.matrizIsFull(Cliente.plateiaA)) {
-			text += colorize("[2] Plateia B", RED_BACK());
+			text += colorize(" [2] Plateia B ", RED_BACK());
 		} else {
-			text += colorize("[2] Plateia B", BLACK_TEXT(), GREEN_BACK());
+			text += colorize(" [2] Plateia B ", BLACK_TEXT(), GREEN_BACK());
 		}
-		text += "\n ";
+		text += "\n";
 		if (Cliente.matrizIsFull(Cliente.plateiaA)) {
-			text += colorize("[5] Balcão Nobre", RED_BACK());
+			text += colorize(" [5] Balcão Nobre ", RED_BACK());
 		} else {
-			text += colorize("[5] Balcão Nobre", BLACK_TEXT(), GREEN_BACK());
+			text += colorize(" [5] Balcão Nobre ", BLACK_TEXT(), GREEN_BACK());
 		}
 		System.out.println(text);
 		System.out.println("Legenda: ");
-		System.out.println(colorize("    ", RED_BACK()) + " Todo ocupado | " + colorize("    ", GREEN_BACK()) + " Possui lugares livres");
+		System.out.println(colorize("    ", RED_BACK()) + " Todo ocupado | " + colorize("    ", GREEN_BACK()) + " Lugares livres");
 
 		//System.out.println(" [1] Plateia A    | " +
 		//		"[2] Plateia B\n" +
