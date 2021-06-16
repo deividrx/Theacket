@@ -9,17 +9,31 @@ public class Cliente {
 	public static int[][] plateiaA = new int[5][5];
 	public static int[][] plateiaB = new int[10][10];
 	public static int[][] BalcaoNobre = new int[5][10];
-	public static int[][] cam01 = new int[1][epCam];
-	public static int[][] cam02 = new int[1][epCam];
-	public static int[][] cam03 = new int[1][epCam];
-	public static int[][] cam04 = new int[1][epCam];
-	public static int[][] cam05 = new int[1][epCam];
-	public static int[][] frisa01esq = new int[1][epfrisa];
-	public static int[][] frisa02esq = new int[1][epfrisa];
-	public static int[][] frisa03esq = new int[1][epfrisa];
-	public static int[][] frisa04dir = new int[1][epfrisa];
-	public static int[][] fisa05dir  = new int[1][epfrisa];
-	public static int[][] fisa06dir = new int[1][epfrisa];
+	public static int[][] cam1 = new int[1][epCam];
+	public static int[][] cam2 = new int[1][epCam];
+	public static int[][] cam3 = new int[1][epCam];
+	public static int[][] cam4 = new int[1][epCam];
+	public static int[][] cam5 = new int[1][epCam];
+	public static int[][] frisa1 = new int[1][epfrisa];
+	public static int[][] frisa2 = new int[1][epfrisa];
+	public static int[][] frisa3 = new int[1][epfrisa];
+	public static int[][] frisa4 = new int[1][epfrisa];
+	public static int[][] frisa5  = new int[1][epfrisa];
+	public static int[][] frisa6 = new int[1][epfrisa];
+
+	public static boolean matrizIsFull(int[][] matriz) {
+		boolean val = true;
+		for (int i = 0; i < matriz.length; i++) {
+			for (int j = 0; j < matriz[0].length; j++) {
+				if (matriz[i][j] == 0) {
+					val = false;
+				}
+			}
+		}
+		return val;
+	}
+
+
 
 	public static boolean validaCPF(String CPF) {
 	    

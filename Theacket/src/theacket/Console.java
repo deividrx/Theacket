@@ -18,7 +18,6 @@ public class Console {
 		imprimiLogo();
 		imprimiComandos();
 		String comando;
-
 		do {
 			System.out.print(colorize("Cliente", GREEN_TEXT()) + "@" + colorize("Theacket", BLUE_TEXT()) + "~$ ");
 			comando = userInput.next();
@@ -29,6 +28,9 @@ public class Console {
 					break;
 				case "sair":
 					System.out.println("Saindo do programa....");
+					break;
+				case "ajuda":
+					imprimiComandos();
 					break;
 				default:
 					errorMes("Comando \"" + comando + "\" inválido!\n");
@@ -49,7 +51,7 @@ public class Console {
 
 		} while(!Cliente.validaCPF(numCPF));
 
-		imprimiAreas();
+		mostraArea();
 		int area;
 		do {
 			System.out.print(colorize("[ÁREA]", CYAN_TEXT()) + " Informe a área desejada: ");
@@ -83,6 +85,12 @@ public class Console {
 
 			System.out.print("Deseja comprar mais poltronas dessa área: [s/n] ");
 			escolha = Character.toUpperCase(userInput.next().charAt(0));
+
+			while (escolha != 'S' && escolha != 'N') {
+				errorMes("Entrada inválida! Informe novamente: ");
+				escolha = Character.toUpperCase(userInput.next().charAt(0));
+			}
+
 		} while (escolha == 'S');
 	}
 
@@ -180,6 +188,38 @@ public class Console {
 		} while (!val);
 	}
 
+	public static void mostraArea() {
+		System.out.println(colorize("#Menu Áreas:", title));
+		String text = " ";
+		if (Cliente.matrizIsFull(Cliente.plateiaA)) {
+			text += colorize("[1] Plateia A", RED_BACK());
+		} else {
+			text += colorize("[1] Plateia A", BLACK_TEXT(), GREEN_BACK());
+		}
+		text += "   | ";
+		if (Cliente.matrizIsFull(Cliente.plateiaA)) {
+			text += colorize("[2] Plateia B", RED_BACK());
+		} else {
+			text += colorize("[2] Plateia B", BLACK_TEXT(), GREEN_BACK());
+		}
+		text += "\n ";
+		if (Cliente.matrizIsFull(Cliente.plateiaA)) {
+			text += colorize("[5] Balcão Nobre", RED_BACK());
+		} else {
+			text += colorize("[5] Balcão Nobre", BLACK_TEXT(), GREEN_BACK());
+		}
+		System.out.println(text);
+		System.out.println("Legenda: ");
+		System.out.println(colorize("    ", RED_BACK()) + " Todo ocupado | " + colorize("    ", GREEN_BACK()) + " Possui lugares livres");
+
+		//System.out.println(" [1] Plateia A    | " +
+		//		"[2] Plateia B\n" +
+		//		" [3] Frisas       | " +
+		//		"[4] Camarotes\n" +
+		//		" [5] Balcão Nobre | " +
+		//		"[6] Cancelar");
+	}
+
 	public static void imprimiLogo() {
 		System.out.println(" _____  _                         _          _   \n" +
 				"|_   _|| |                       | |        | |  \n" +
@@ -190,16 +230,17 @@ public class Console {
 	}
 
 	public static void imprimiComandos() {
-		System.out.println("Comandos:\n" +
+		System.out.println(colorize("#Comandos:\n", title) +
 				"comin    comprar ingresso\n" +
-				"CustPol  ver custo das poltronas\n" +
+				"custPol  ver custo das poltronas\n" +
+				"ajuda    ver os comandos disponíveis\n" +
 				"sair     sair do programa");
 	}
 
 	public static void imprimiAreas() {
 		System.out.println(colorize("#Menu Áreas:", title) +
 				"\n" +
-				" [1]     Plateia A      | [2]     Plateia B\n" +
+				colorize(" [1]     Plateia A      ", GREEN_BACK()) + "| [2]     Plateia B\n" +
 				" [3]     Frisas         | [4]     Camarotes\n" +
 				" [5]     Balcão Nobre   | [6]     Cancelar");
 	}
