@@ -4,7 +4,22 @@ import java.util.InputMismatchException;
 
 public class Cliente {
 
+	public static int epCam = 10;
+	public static int epfrisa = 5;
 	public static int[][] plateiaA = new int[5][5];
+	public static int[][] plateiaB = new int[10][10];
+	public static int[][] BalcaoNobre = new int[5][10];
+	public static int[][] cam01 = new int[1][epCam];
+	public static int[][] cam02 = new int[1][epCam];
+	public static int[][] cam03 = new int[1][epCam];
+	public static int[][] cam04 = new int[1][epCam];
+	public static int[][] cam05 = new int[1][epCam];
+	public static int[][] frisa01esq = new int[1][epfrisa];
+	public static int[][] frisa02esq = new int[1][epfrisa];
+	public static int[][] frisa03esq = new int[1][epfrisa];
+	public static int[][] frisa04dir = new int[1][epfrisa];
+	public static int[][] fisa05dir  = new int[1][epfrisa];
+	public static int[][] fisa06dir = new int[1][epfrisa];
 
 	public static boolean validaCPF(String CPF) {
 	    
@@ -26,7 +41,7 @@ public class Cliente {
             peso = 10;
             
             for (i = 0; i < 9; i++) {
-            	num = (int) (CPF.charAt(i) - 48);
+            	num = CPF.charAt(i) - 48;
             	sm = sm + (num * peso);
             	peso = peso - 1;
             }
@@ -43,7 +58,7 @@ public class Cliente {
             peso = 11;
             
             for(i = 0; i < 10; i++) {
-            	num = (int) (CPF.charAt(i) - 48);
+            	num = (CPF.charAt(i) - 48);
             	sm = sm + (num * peso);
             	peso = peso - 1;
 	        }
@@ -55,16 +70,11 @@ public class Cliente {
             } else {
             	dig11 = (char)(r + 48);
             }
-	        
-            if ((dig10 == CPF.charAt(9)) && (dig11 == CPF.charAt(10))) {
-            	return(true);
-            } else {
-            	return(false);
-            }
+
+			return (dig10 == CPF.charAt(9)) && (dig11 == CPF.charAt(10));
             
 	    } catch (InputMismatchException erro) {
 	    	return(false);
-	    	
 	    }
     }
 	public static String imprimeCPF(String CPF) {

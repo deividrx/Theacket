@@ -1,92 +1,89 @@
 package theacket;
 
+import consoleColor.AnsiFormat;
+
 import static consoleColor.Ansi.colorize;
 import static consoleColor.Attribute.*;
+
 import java.util.Scanner;
 
 public class Console {
 
 	public static Scanner userInput = new Scanner(System.in);
 	public static char[] alfabeto = {'a','b','c','d','e','f','g','h','i','j','k','l','m','n','o','p','q','r','s','t','u','v','w','x','y','z'};
-	public static String logo = " _____  _                         _          _   \n" +
-			"|_   _|| |                       | |        | |  \n" +
-			"  | |  | |__    ___   __ _   ___ | | __ ___ | |_ \n" +
-			"  | |  | '_ \\  / _ \\ / _` | / __|| |/ // _ \\| __|\n" +
-			"  | |  | | | ||  __/| (_| || (__ |   <|  __/| |_ \n" +
-			"  \\_/  |_| |_| \\___| \\__,_| \\___||_|\\_\\\\___| \\__|\n";
-	public static String modos = "Códigos:\n" +
-			" [1]     entrar no modo cliente\n" +
-			" [2]     entrar no modo administrativo\n" +
-			" [3]     sair do programa\n";
+	public static AnsiFormat title = new AnsiFormat(BRIGHT_BLUE_TEXT(), BOLD());
 
-	public static String comandosCli = "Comandos:\n" +
-			"comin       comprar ingresso\n" +
-			"CustPol     ver custo das poltronas\n" +
-			"sair        sair do programa\n";
-	public static String areas = "Áreas:\n" +
-			" [1]        Plateia A\n" +
-			" [2]        Plateia B\n" +
-			" [3]        Frisas\n" +
-			" [4]        Camarotes\n" +
-			" [5]        Balcão Nobre\n";
 
 	public static void main(String[] args) {
-		System.out.print(logo + modos);
-		int codigo;
+		imprimiLogo();
+		imprimiComandos();
+		String comando;
 
 		do {
-			System.out.print(colorize("[modo]", YELLOW_TEXT()) + " Informe em qual modo deseja entrar: ");
-			codigo = validaEntradaInt();
+			System.out.print(colorize("Cliente", GREEN_TEXT()) + "@" + colorize("Theacket", BLUE_TEXT()) + "~$ ");
+			comando = userInput.next();
 
-			if (codigo != 1 && codigo != 2 && codigo != 3) {
-				errorMes("Modo \"" + codigo + "\" inválido!\n");
+			switch (comando) {
+				case "comin":
+					compraIngresso();
+					break;
+				case "sair":
+					System.out.println("Saindo do programa....");
+					break;
+				default:
+					errorMes("Comando \"" + comando + "\" inválido!\n");
 			}
 
-		} while (codigo != 1 && codigo != 2 && codigo != 3);
+		} while (!comando.equals("sair"));
+	}
 
-		String comando;
-		if (codigo == 1) {
-			System.out.print(comandosCli);
-			do {
-        		System.out.print(colorize("cliente", GREEN_TEXT()) + "@" + colorize("Theacket", BLUE_TEXT()) + "~$ ");
-        		comando = userInput.next();
+	public static void compraIngresso() {
+		String numCPF;
+		do {
+			System.out.print(colorize("[CPF]", CYAN_TEXT()) + " Informe o seu CPF: ");
+			numCPF = userInput.next();
 
-        		switch (comando) {
-					case "comin":
-						System.out.print(areas);
-						int area;
-						do {
-							System.out.print("Informe a área: ");
-							area = validaEntradaInt();
+			if (!Cliente.validaCPF(numCPF)){
+				errorMes("CPF inválido!\n");
+			}
 
-							if (area != 1 && area != 2 && area != 3 && area != 4 && area != 5) {
-								errorMes("Área \"" + area + "\" inválido!\n");
-							}
+		} while(!Cliente.validaCPF(numCPF));
 
-						} while (area != 1 && area != 2 && area != 3 && area != 4 && area != 5);
+		imprimiAreas();
+		int area;
+		do {
+			System.out.print(colorize("[ÁREA]", CYAN_TEXT()) + " Informe a área desejada: ");
+			area = validaEntradaInt();
 
-						switch (area) {
-							case 1:
-								mostraPoltrona(Cliente.plateiaA, "Plateia A");
-								inputPoltrona(Cliente.plateiaA, "Informe a Poltrona: ");
-								break;
-							case 2:
-								break;
-						}
+			if (area != 1 && area != 2 && area != 3 && area != 4 && area != 5) {
+				errorMes("Área \"" + area + "\" inválida!\n");
+			}
 
+		} while (area != 1 && area != 2 && area != 3 && area != 4 && area != 5);
 
+		char escolha;
+		do {
+			switch (area) {
+				case 1:
+					System.out.println(colorize("#Plateia A:", title));
+					mostraPoltrona(Cliente.plateiaA);
+					inputPoltrona(Cliente.plateiaA);
+					break;
+				case 2:
+					System.out.println(colorize("#Plateia B:", title));
+					mostraPoltrona(Cliente.plateiaB);
+					inputPoltrona(Cliente.plateiaB);
+					break;
+				case 5:
+					System.out.println(colorize("#Balcão Nobre:", title));
+					mostraPoltrona(Cliente.BalcaoNobre);
+					inputPoltrona(Cliente.BalcaoNobre);
+					break;
+			}
 
-
-
-						break;
-					case "":
-						break;
-        			default:
-        				errorMes("Comando \"" + comando + "\" inválido!");
-        		}
-
-        	} while (!comando.equals("sair"));
-        }
+			System.out.print("Deseja comprar mais poltronas dessa área: [s/n] ");
+			escolha = Character.toUpperCase(userInput.next().charAt(0));
+		} while (escolha == 'S');
 	}
 
 	public static void errorMes(String text) {
@@ -103,9 +100,8 @@ public class Console {
 		return input;
 	}
 
-	public static void mostraPoltrona(int[][] plateia, String plateiaText) {
+	public static void mostraPoltrona(int[][] plateia) {
 		int cadeira = 1;
-		System.out.println(plateiaText + ":");
 		for (int i = 0; i < plateia.length; i++) {
 			for (int j = 0; j < plateia[0].length; j++) {
 				String text = "[" + cadeira + Character.toUpperCase(alfabeto[i]) + "]";
@@ -120,18 +116,19 @@ public class Console {
 			System.out.println();
 			cadeira = 1;
 		}
-		System.out.println("\nLegenda: ");
+		System.out.println("Legenda: ");
 		System.out.println(colorize("    ", RED_BACK()) + " Ocupado | " + colorize("    ", GREEN_BACK()) + " Livre");
 	}
 
-	public static void inputPoltrona(int[][] plateia, String text) {
-		boolean val;
+	public static void inputPoltrona(int[][] plateia) {
+		boolean val ;
+		String polInvalid = "Poltrona inválida!\n";
 		do {
-			System.out.print(text);
+			System.out.print(colorize("[POLTRONA]", CYAN_TEXT()) + " Informe a Poltrona: ");
 			String poltrona = userInput.next().toUpperCase();
 
 			if (poltrona.length() < 2) {
-				errorMes("Poltrona inválida!");
+				errorMes(polInvalid);
 				val = false;
 			} else {
 				String num = poltrona.substring(0, poltrona.length() - 1);
@@ -139,43 +136,71 @@ public class Console {
 				int indexLine = 0;
 				int indexColumn;
 				Scanner sc = new Scanner(num);
+				int count = 0;
 
 				for (int i = 0; i < alfabeto.length; i++) {
 					if (letra == Character.toUpperCase(alfabeto[i])) {
 						indexLine = i;
+						count++;
 					}
 				}
 
-				if (indexLine > (plateia.length - 1)) {
-					errorMes("Poltrona inválida!");
-					val = false;
-				} else if (!sc.hasNextInt()) {
-					errorMes("Poltrona inválida!");
-					val = false;
-					sc.next();
-				} else {
-					indexColumn = Integer.parseInt(num);
-					indexColumn--;
-					sc.next();
-
-					if (indexColumn > plateia[0].length) {
-						errorMes("Poltrona inválida!");
+				if (count == 1) {
+					if (indexLine > (plateia.length - 1)) {
+						errorMes(polInvalid);
 						val = false;
+					} else if (!sc.hasNextInt()) {
+						errorMes(polInvalid);
+						val = false;
+						sc.next();
 					} else {
-						if (plateia[indexLine][indexColumn] == 0) {
-							plateia[indexLine][indexColumn] = 1;
-							val = true;
-						} else {
-							errorMes("Poltrona já ocupada!");
+						indexColumn = Integer.parseInt(num);
+						indexColumn--;
+						sc.next();
+						if (indexColumn > plateia[0].length) {
+							errorMes(polInvalid);
 							val = false;
+						} else {
+							if (plateia[indexLine][indexColumn] == 0) {
+								plateia[indexLine][indexColumn] = 1;
+								val = true;
+							} else {
+								errorMes(polInvalid);
+								val = false;
+							}
 						}
- 					}
+					}
+
+				} else {
+					errorMes(polInvalid);
+					val = false;
 				}
 				sc.close();
 			}
-			System.out.println();
 		} while (!val);
 	}
 
+	public static void imprimiLogo() {
+		System.out.println(" _____  _                         _          _   \n" +
+				"|_   _|| |                       | |        | |  \n" +
+				"  | |  | |__    ___   __ _   ___ | | __ ___ | |_ \n" +
+				"  | |  | '_ \\  / _ \\ / _` | / __|| |/ // _ \\| __|\n" +
+				"  | |  | | | ||  __/| (_| || (__ |   <|  __/| |_ \n" +
+				"  \\_/  |_| |_| \\___| \\__,_| \\___||_|\\_\\\\___| \\__|");
+	}
 
+	public static void imprimiComandos() {
+		System.out.println("Comandos:\n" +
+				"comin    comprar ingresso\n" +
+				"CustPol  ver custo das poltronas\n" +
+				"sair     sair do programa");
+	}
+
+	public static void imprimiAreas() {
+		System.out.println(colorize("#Menu Áreas:", title) +
+				"\n" +
+				" [1]     Plateia A      | [2]     Plateia B\n" +
+				" [3]     Frisas         | [4]     Camarotes\n" +
+				" [5]     Balcão Nobre   | [6]     Cancelar");
+	}
 }
