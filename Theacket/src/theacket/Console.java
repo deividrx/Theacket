@@ -89,7 +89,7 @@ public class Console {
 
 		} while (!val);
 
-		char escolha = 'N';
+		char escolha;
 		val = true;
 		do {
 			switch (area) {
@@ -136,6 +136,19 @@ public class Console {
 			}
 
 		} while (escolha == 'S');
+
+		String pay;
+		System.out.println(colorize("#Formas de pagamento:", title));
+		System.out.println("[0] Cartão | [1] Boleto | [2] Bitcoin ");
+		System.out.print(colorize("[PAY]", GREEN_TEXT()) + " Informe a forma de pagamento: ");
+		pay = userInput.next();
+
+		while (!pay.equals("0") && !pay.equals("1") && !pay.equals("2")) {
+			errorMes("Forma de pagamento inválido! Informe novamente: ");
+			pay = userInput.next();
+		}
+
+		System.out.println(colorize("[PAY] Pagamento concluído!", GREEN_TEXT()));
 	}
 	
 	public static void custoPoltrona() {
