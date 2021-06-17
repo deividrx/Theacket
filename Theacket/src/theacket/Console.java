@@ -63,19 +63,25 @@ public class Console {
 			area = userInput.next().charAt(0);
 			switch (area) {
 				case '1':
-					if (Cliente.matrizIsFull(Cliente.plateiaA)) {
+					if (Cliente.matrizHasFull(Cliente.plateiaA)) {
 					 errorMes(areaInvalid);
 					 val = false;
 					}
 					break;
 				case '2':
-					if (Cliente.matrizIsFull(Cliente.plateiaB)) {
+					if (Cliente.matrizHasFull(Cliente.plateiaB)) {
+						errorMes(areaInvalid);
+						val = false;
+					}
+					break;
+				case '3':
+					if (Cliente.allFrisasHasFull()) {
 						errorMes(areaInvalid);
 						val = false;
 					}
 					break;
 				case '5':
-					if (Cliente.matrizIsFull(Cliente.BalcaoNobre)) {
+					if (Cliente.matrizHasFull(Cliente.BalcaoNobre)) {
 						errorMes(areaInvalid);
 						val = false;
 					}
@@ -93,7 +99,7 @@ public class Console {
 		do {
 			switch (area) {
 				case '1':
-					if (Cliente.matrizIsFull(Cliente.plateiaA)) {
+					if (Cliente.matrizHasFull(Cliente.plateiaA)) {
 						val = false;
 					} else {
 						System.out.println(colorize("#Plateia A:", title));
@@ -103,7 +109,7 @@ public class Console {
 					}
 					break;
 				case '2':
-					if (Cliente.matrizIsFull(Cliente.plateiaB)) {
+					if (Cliente.matrizHasFull(Cliente.plateiaB)) {
 						val = false;
 					} else {
 						System.out.println(colorize("#Plateia B:", title));
@@ -112,8 +118,15 @@ public class Console {
 						custoCliente += Ingresso.getPreco("pb");
 					}
 					break;
+				case '3':
+					if (Cliente.allFrisasHasFull()) {
+						val = false;
+					} else {
+						custoCliente += compraFrisa();
+					}
+					break;
 				case '5':
-					if (Cliente.matrizIsFull(Cliente.BalcaoNobre)) {
+					if (Cliente.matrizHasFull(Cliente.BalcaoNobre)) {
 						val = false;
 					} else {
 						System.out.println(colorize("#Balcão Nobre:", title));
@@ -172,6 +185,143 @@ public class Console {
 
 	public static void avisoMes(String text) {
 		System.out.print(colorize("[AVISO] " + text, YELLOW_TEXT()));
+	}
+
+	public static double compraFrisa() {
+		mostraFrisas();
+		char area;
+		boolean val = true;
+		String areaInvalid = "Frisa cheia!\n";
+		do {
+			System.out.print(colorize("[FRISA]", CYAN_TEXT()) + " Informe a frisa desejada: ");
+			area = userInput.next().charAt(0);
+			switch (area) {
+				case '1':
+					if (Cliente.matrizHasFull(Cliente.frisa1)) {
+						errorMes(areaInvalid);
+						val = false;
+					}
+					break;
+				case '2':
+					if (Cliente.matrizHasFull(Cliente.frisa2)) {
+						errorMes(areaInvalid);
+						val = false;
+					}
+					break;
+				case '3':
+					if (Cliente.matrizHasFull(Cliente.frisa3)) {
+						errorMes(areaInvalid);
+						val = false;
+					}
+					break;
+				case '4':
+					if (Cliente.matrizHasFull(Cliente.frisa4)) {
+						errorMes(areaInvalid);
+						val = false;
+					}
+					break;
+				case '5':
+					if (Cliente.matrizHasFull(Cliente.frisa5)) {
+						errorMes(areaInvalid);
+						val = false;
+					}
+					break;
+				case '6':
+					if (Cliente.matrizHasFull(Cliente.frisa6)) {
+						errorMes(areaInvalid);
+						val = false;
+					}
+				default:
+					errorMes("Área \"" + area + "\" inválida!\n");
+					val = false;
+			}
+
+		} while (!val);
+
+		double custoCliente = 0;
+		char escolha = 'N';
+		val = true;
+		do {
+			switch (area) {
+				case '1':
+					if (Cliente.matrizHasFull(Cliente.frisa1)) {
+						val = false;
+					} else {
+						System.out.println(colorize("#Frisa 1:", title));
+						mostraPoltrona(Cliente.frisa1);
+						inputPoltrona(Cliente.frisa1);
+						custoCliente += Ingresso.getPreco("f");
+					}
+					break;
+				case '2':
+					if (Cliente.matrizHasFull(Cliente.frisa2)) {
+						val = false;
+					} else {
+						System.out.println(colorize("#Frisa 2:", title));
+						mostraPoltrona(Cliente.frisa2);
+						inputPoltrona(Cliente.frisa2);
+						custoCliente += Ingresso.getPreco("f");
+					}
+					break;
+				case '3':
+					if (Cliente.matrizHasFull(Cliente.frisa3)) {
+						val = false;
+					} else {
+						System.out.println(colorize("#Frisa 3:", title));
+						mostraPoltrona(Cliente.frisa3);
+						inputPoltrona(Cliente.frisa3);
+						custoCliente += Ingresso.getPreco("f");
+					}
+					break;
+				case '4':
+					if (Cliente.matrizHasFull(Cliente.frisa4)) {
+						val = false;
+					} else {
+						System.out.println(colorize("#Frisa 4:", title));
+						mostraPoltrona(Cliente.frisa4);
+						inputPoltrona(Cliente.frisa4);
+						custoCliente += Ingresso.getPreco("f");
+					}
+				case '5':
+					if (Cliente.matrizHasFull(Cliente.frisa5)) {
+						val = false;
+					} else {
+						System.out.println(colorize("#Frisa 5:", title));
+						mostraPoltrona(Cliente.frisa5);
+						inputPoltrona(Cliente.frisa5);
+						custoCliente += Ingresso.getPreco("f");
+					}
+					break;
+				case '6':
+					if (Cliente.matrizHasFull(Cliente.frisa6)) {
+						val = false;
+					} else {
+						System.out.println(colorize("#Frisa 6:", title));
+						mostraPoltrona(Cliente.frisa6);
+						inputPoltrona(Cliente.frisa6);
+						custoCliente += Ingresso.getPreco("f");
+					}
+					break;
+			}
+
+			if (!inputPoltronaIsCanceled) {
+				if (val) {
+					System.out.print("Deseja comprar mais poltronas dessa frisa: [s/n] ");
+					escolha = Character.toUpperCase(userInput.next().charAt(0));
+
+					while (escolha != 'S' && escolha != 'N') {
+						errorMes("Entrada inválida! Informe novamente: ");
+						escolha = Character.toUpperCase(userInput.next().charAt(0));
+					}
+				} else {
+					avisoMes(areaInvalid);
+					escolha = 'N';
+				}
+			}
+
+		} while (escolha == 'S');
+		inputPoltronaIsCanceled = false;
+		return custoCliente;
 	}
 
 	public static int validaEntradaInt() {
@@ -278,23 +428,31 @@ public class Console {
 	public static void mostraArea() {
 		System.out.println(colorize("#Menu Áreas:", title));
 		String text = "";
-		if (Cliente.matrizIsFull(Cliente.plateiaA)) {
+		if (Cliente.matrizHasFull(Cliente.plateiaA)) {
 			text += colorize(" [1] Plateia A ", RED_BACK());
 		} else {
 			text += colorize(" [1] Plateia A ", BLACK_TEXT(), GREEN_BACK());
 		}
 		text += "\n";
-		if (Cliente.matrizIsFull(Cliente.plateiaA)) {
+		if (Cliente.matrizHasFull(Cliente.plateiaB)) {
 			text += colorize(" [2] Plateia B ", RED_BACK());
 		} else {
 			text += colorize(" [2] Plateia B ", BLACK_TEXT(), GREEN_BACK());
 		}
 		text += "\n";
-		if (Cliente.matrizIsFull(Cliente.plateiaA)) {
+		if (Cliente.allFrisasHasFull()) {
+			text += colorize(" [3] Frisas ", RED_BACK());
+		} else {
+			text += colorize(" [3] Frisas ", BLACK_TEXT(), GREEN_BACK());
+		}
+		text += "\n";
+		if (Cliente.matrizHasFull(Cliente.BalcaoNobre)) {
 			text += colorize(" [5] Balcão Nobre ", RED_BACK());
 		} else {
 			text += colorize(" [5] Balcão Nobre ", BLACK_TEXT(), GREEN_BACK());
 		}
+
+
 		System.out.println(text);
 		System.out.println("Legenda: ");
 		System.out.println(colorize("    ", RED_BACK()) + " Todo ocupado | " + colorize("    ", GREEN_BACK()) + " Lugares livres");
@@ -305,6 +463,50 @@ public class Console {
 		//		"[4] Camarotes\n" +
 		//		" [5] Balcão Nobre | " +
 		//		"[6] Cancelar");
+	}
+
+	public static void mostraFrisas() {
+		System.out.println(colorize("#Menu Frisas:", title));
+		String text = "";
+		if (Cliente.matrizHasFull(Cliente.frisa1)) {
+			text += colorize(" [1] Frisa 1 ", RED_BACK());
+		} else {
+			text += colorize(" [1] Frisa 1 ", BLACK_TEXT(), GREEN_BACK());
+		}
+		text += "\n";
+		if (Cliente.matrizHasFull(Cliente.frisa2)) {
+			text += colorize(" [2] Frisa 2 ", RED_BACK());
+		} else {
+			text += colorize(" [2] Frisa 2 ", BLACK_TEXT(), GREEN_BACK());
+		}
+		text += "\n";
+		if (Cliente.matrizHasFull(Cliente.frisa3)) {
+			text += colorize(" [3] Frisa 3 ", RED_BACK());
+		} else {
+			text += colorize(" [3] Frisa 3 ", BLACK_TEXT(), GREEN_BACK());
+		}
+		text += "\n";
+		if (Cliente.matrizHasFull(Cliente.frisa4)) {
+			text += colorize(" [4] Frisa 4 ", RED_BACK());
+		} else {
+			text += colorize(" [4] Frisa 4 ", BLACK_TEXT(), GREEN_BACK());
+		}
+		text += "\n";
+		if (Cliente.matrizHasFull(Cliente.frisa5)) {
+			text += colorize(" [5] Frisa 5 ", RED_BACK());
+		} else {
+			text += colorize(" [5] Frisa 5 ", BLACK_TEXT(), GREEN_BACK());
+		}
+		text += "\n";
+		if (Cliente.matrizHasFull(Cliente.frisa6)) {
+			text += colorize(" [6] Frisa 6 ", RED_BACK());
+		} else {
+			text += colorize(" [6] Frisa 6 ", BLACK_TEXT(), GREEN_BACK());
+		}
+
+		System.out.println(text);
+		System.out.println("Legenda: ");
+		System.out.println(colorize("    ", RED_BACK()) + " Todo ocupado | " + colorize("    ", GREEN_BACK()) + " Lugares livres");
 	}
 
 	public static void imprimiLogo() {
@@ -321,6 +523,7 @@ public class Console {
 				"comin    comprar ingresso\n" +
 				"custPol  ver custo das poltronas\n" +
 				"ajuda    ver os comandos disponíveis\n" +
+				"adm      entrar no modo administrativo\n" +
 				"sair     sair do programa");
 	}
 }

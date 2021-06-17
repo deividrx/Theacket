@@ -21,7 +21,7 @@ public class Cliente {
 	public static int[][] frisa5  = new int[1][epfrisa];
 	public static int[][] frisa6 = new int[1][epfrisa];
 
-	public static boolean matrizIsFull(int[][] matriz) {
+	public static boolean matrizHasFull(int[][] matriz) {
 		boolean val = true;
 		for (int i = 0; i < matriz.length; i++) {
 			for (int j = 0; j < matriz[0].length; j++) {
@@ -34,7 +34,9 @@ public class Cliente {
 		return val;
 	}
 
-
+	public static boolean allFrisasHasFull() {
+		return matrizHasFull(frisa1) && matrizHasFull(frisa2) && matrizHasFull(frisa3) && matrizHasFull(frisa4) && matrizHasFull(frisa5) && matrizHasFull(frisa6);
+	}
 
 	public static boolean validaCPF(String CPF) {
 	    
