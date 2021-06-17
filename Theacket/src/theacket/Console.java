@@ -231,6 +231,7 @@ public class Console {
 						errorMes(areaInvalid);
 						val = false;
 					}
+					break;
 				default:
 					errorMes("Área \"" + area + "\" inválida!\n");
 					val = false;
@@ -282,6 +283,7 @@ public class Console {
 						inputPoltrona(Cliente.frisa4);
 						custoCliente += Ingresso.getPreco("f");
 					}
+					break;
 				case '5':
 					if (Cliente.matrizHasFull(Cliente.frisa5)) {
 						val = false;
