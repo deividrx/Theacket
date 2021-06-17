@@ -27,6 +27,7 @@ public class Cliente {
 			for (int j = 0; j < matriz[0].length; j++) {
 				if (matriz[i][j] == 0) {
 					val = false;
+					break;
 				}
 			}
 		}

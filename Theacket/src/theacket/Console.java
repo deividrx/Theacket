@@ -26,7 +26,6 @@ public class Console {
 				case "comin":
 					compraIngresso();
 					break;
-					
 				case "custPol":
 					custoPoltrona();
 					break;
@@ -56,26 +55,26 @@ public class Console {
 		} while(!Cliente.validaCPF(numCPF));
 
 		mostraArea();
-		int area;
+		char area;
 		boolean val = true;
 		do {
 			String areaInvalid = "Área cheia!\n";
 			System.out.print(colorize("[ÁREA]", CYAN_TEXT()) + " Informe a área desejada: ");
-			area = validaEntradaInt();
+			area = userInput.next().charAt(0);
 			switch (area) {
-				case 1:
+				case '1':
 					if (Cliente.matrizIsFull(Cliente.plateiaA)) {
 					 errorMes(areaInvalid);
 					 val = false;
 					}
 					break;
-				case 2:
+				case '2':
 					if (Cliente.matrizIsFull(Cliente.plateiaB)) {
 						errorMes(areaInvalid);
 						val = false;
 					}
 					break;
-				case 5:
+				case '5':
 					if (Cliente.matrizIsFull(Cliente.BalcaoNobre)) {
 						errorMes(areaInvalid);
 						val = false;
@@ -86,69 +85,77 @@ public class Console {
 					val = false;
 			}
 
-
 		} while (!val);
 
-		char escolha;
+		double custoCliente = 0;
+		char escolha = 'N';
 		val = true;
 		do {
 			switch (area) {
-				case 1:
+				case '1':
 					if (Cliente.matrizIsFull(Cliente.plateiaA)) {
 						val = false;
 					} else {
 						System.out.println(colorize("#Plateia A:", title));
 						mostraPoltrona(Cliente.plateiaA);
 						inputPoltrona(Cliente.plateiaA);
+						custoCliente += Ingresso.getPreco("pa");
 					}
 					break;
-				case 2:
+				case '2':
 					if (Cliente.matrizIsFull(Cliente.plateiaB)) {
 						val = false;
 					} else {
 						System.out.println(colorize("#Plateia B:", title));
 						mostraPoltrona(Cliente.plateiaB);
 						inputPoltrona(Cliente.plateiaB);
+						custoCliente += Ingresso.getPreco("pb");
 					}
 					break;
-				case 5:
+				case '5':
 					if (Cliente.matrizIsFull(Cliente.BalcaoNobre)) {
 						val = false;
 					} else {
 						System.out.println(colorize("#Balcão Nobre:", title));
 						mostraPoltrona(Cliente.BalcaoNobre);
 						inputPoltrona(Cliente.BalcaoNobre);
+						custoCliente += Ingresso.getPreco("bn");
 					}
 					break;
 			}
 
-			if (val) {
-				System.out.print("Deseja comprar mais poltronas dessa área: [s/n] ");
-				escolha = Character.toUpperCase(userInput.next().charAt(0));
-
-				while (escolha != 'S' && escolha != 'N') {
-					errorMes("Entrada inválida! Informe novamente: ");
+			if (!inputPoltronaIsCanceled) {
+				if (val) {
+					System.out.print("Deseja comprar mais poltronas dessa área: [s/n] ");
 					escolha = Character.toUpperCase(userInput.next().charAt(0));
+
+					while (escolha != 'S' && escolha != 'N') {
+						errorMes("Entrada inválida! Informe novamente: ");
+						escolha = Character.toUpperCase(userInput.next().charAt(0));
+					}
+				} else {
+					avisoMes("Área cheia!\n");
+					escolha = 'N';
 				}
-			} else {
-				avisoMes("Área cheia!\n");
-				escolha = 'N';
 			}
 
 		} while (escolha == 'S');
 
-		String pay;
-		System.out.println(colorize("#Formas de pagamento:", title));
-		System.out.println("[0] Cartão | [1] Boleto | [2] Bitcoin ");
-		System.out.print(colorize("[PAY]", GREEN_TEXT()) + " Informe a forma de pagamento: ");
-		pay = userInput.next();
+		if (!inputPoltronaIsCanceled) {
+			System.out.println(colorize("#Formas de pagamento:", title));
+			System.out.println("[0] Cartão | [1] Boleto | [2] Bitcoin ");
+			System.out.println("Total a pagar: R$ " + custoCliente);
+			System.out.print(colorize("[PAY]", GREEN_TEXT()) + " Informe a forma de pagamento: ");
+			char pay = userInput.next().charAt(0);
 
-		while (!pay.equals("0") && !pay.equals("1") && !pay.equals("2")) {
-			errorMes("Forma de pagamento inválido! Informe novamente: ");
-			pay = userInput.next();
+			while (pay != '0' && pay != '1' && pay != '2') {
+				errorMes("Forma de pagamento inválido! Informe novamente: ");
+				pay = userInput.next().charAt(0);
+			}
+
+			System.out.println(colorize("[PAY] Pagamento concluído!", GREEN_TEXT()));
 		}
-
-		System.out.println(colorize("[PAY] Pagamento concluído!", GREEN_TEXT()));
+		inputPoltronaIsCanceled = false;
 	}
 	
 	public static void custoPoltrona() {
@@ -195,64 +202,75 @@ public class Console {
 		}
 		System.out.println("Legenda: ");
 		System.out.println(colorize("    ", RED_BACK()) + " Ocupado | " + colorize("    ", GREEN_BACK()) + " Livre");
+		System.out.println("cancel     para cancelar a compra do ingresso");
 	}
 
+	public static boolean inputPoltronaIsCanceled;
+
 	public static void inputPoltrona(int[][] plateia) {
-		boolean val ;
+		boolean val;
 		String polInvalid = "Poltrona inválida!\n";
 		do {
 			System.out.print(colorize("[POLTRONA]", CYAN_TEXT()) + " Informe a Poltrona: ");
 			String poltrona = userInput.next().toUpperCase();
 
-			if (poltrona.length() < 2) {
-				errorMes(polInvalid);
-				val = false;
+			if (poltrona.equalsIgnoreCase("cancel")) {
+				avisoMes("Cancelando a operação...\n");
+				inputPoltronaIsCanceled = true;
+				val = true;
 			} else {
-				String num = poltrona.substring(0, poltrona.length() - 1);
-				char letra = poltrona.charAt(poltrona.length() - 1);
-				int indexLine = 0;
-				int indexColumn;
-				Scanner sc = new Scanner(num);
-				int count = 0;
+				if (poltrona.length() < 2) {
+					errorMes(polInvalid);
+					val = false;
+				} else {
+					String num = poltrona.substring(0, poltrona.length() - 1);
+					char letra = poltrona.charAt(poltrona.length() - 1);
+					int indexLine = 0;
+					int indexColumn;
+					Scanner sc = new Scanner(num);
+					int count = 0;
 
-				for (int i = 0; i < alfabeto.length; i++) {
-					if (letra == Character.toUpperCase(alfabeto[i])) {
-						indexLine = i;
-						count++;
-					}
-				}
-
-				if (count == 1) {
-					if (indexLine > (plateia.length - 1)) {
-						errorMes(polInvalid);
-						val = false;
-					} else if (!sc.hasNextInt()) {
-						errorMes(polInvalid);
-						val = false;
-						sc.next();
-					} else {
-						indexColumn = Integer.parseInt(num);
-						indexColumn--;
-						sc.next();
-						if (indexColumn > plateia[0].length) {
-							errorMes(polInvalid);
-							val = false;
-						} else {
-							if (plateia[indexLine][indexColumn] == 0) {
-								plateia[indexLine][indexColumn] = 1;
-								val = true;
-							} else {
-								errorMes(polInvalid);
-								val = false;
-							}
+					for (int i = 0; i < alfabeto.length; i++) {
+						if (letra == Character.toUpperCase(alfabeto[i])) {
+							indexLine = i;
+							count++;
 						}
 					}
 
-				} else {
-					errorMes(polInvalid);
-					val = false;
+					if (count == 1) {
+						if (indexLine > (plateia.length - 1)) {
+							errorMes(polInvalid);
+							val = false;
+						} else if (!sc.hasNextInt()) {
+							errorMes(polInvalid);
+							val = false;
+							sc.next();
+						} else {
+							indexColumn = Integer.parseInt(num);
+							indexColumn--;
+							sc.next();
+							if (indexColumn > plateia[0].length) {
+								errorMes(polInvalid);
+								val = false;
+							} else {
+								if (plateia[indexLine][indexColumn] == 0) {
+									plateia[indexLine][indexColumn] = 1;
+
+
+									val = true;
+								} else {
+									errorMes(polInvalid);
+									val = false;
+								}
+							}
+						}
+
+					} else {
+						errorMes(polInvalid);
+						val = false;
+					}
+					sc.close();
 				}
-				sc.close();
 			}
 		} while (!val);
 	}
@@ -304,13 +322,5 @@ public class Console {
 				"custPol  ver custo das poltronas\n" +
 				"ajuda    ver os comandos disponíveis\n" +
 				"sair     sair do programa");
-	}
-
-	public static void imprimiAreas() {
-		System.out.println(colorize("#Menu Áreas:", title) +
-				"\n" +
-				colorize(" [1]     Plateia A      ", GREEN_BACK()) + "| [2]     Plateia B\n" +
-				" [3]     Frisas         | [4]     Camarotes\n" +
-				" [5]     Balcão Nobre   | [6]     Cancelar");
 	}
 }
