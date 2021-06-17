@@ -12,7 +12,7 @@ public class Console {
 	public static Scanner userInput = new Scanner(System.in);
 	public static char[] alfabeto = {'a','b','c','d','e','f','g','h','i','j','k','l','m','n','o','p','q','r','s','t','u','v','w','x','y','z'};
 	public static AnsiFormat title = new AnsiFormat(BRIGHT_BLUE_TEXT(), BOLD());
-
+	public static boolean inputPoltronaIsCanceled;
 
 	public static void main(String[] args) {
 		imprimiLogo();
@@ -170,7 +170,7 @@ public class Console {
 		}
 		inputPoltronaIsCanceled = false;
 	}
-	
+
 	public static void custoPoltrona() {
 		System.out.println("Poltrona Plateia A:    | R$40,00");
 		System.out.println("Poltrona Plateia B:    | R$60,00");
@@ -322,7 +322,6 @@ public class Console {
 			}
 
 		} while (escolha == 'S');
-		inputPoltronaIsCanceled = false;
 		return custoCliente;
 	}
 
@@ -356,8 +355,6 @@ public class Console {
 		System.out.println(colorize("    ", RED_BACK()) + " Ocupado | " + colorize("    ", GREEN_BACK()) + " Livre");
 		System.out.println("cancel     para cancelar a compra do ingresso");
 	}
-
-	public static boolean inputPoltronaIsCanceled;
 
 	public static void inputPoltrona(int[][] plateia) {
 		boolean val;
