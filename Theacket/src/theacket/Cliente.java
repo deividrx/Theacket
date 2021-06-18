@@ -38,6 +38,10 @@ public class Cliente {
 		return matrizHasFull(frisa1) && matrizHasFull(frisa2) && matrizHasFull(frisa3) && matrizHasFull(frisa4) && matrizHasFull(frisa5) && matrizHasFull(frisa6);
 	}
 
+	public static boolean allFrisasHasCam() {
+		return matrizHasFull(cam1) && matrizHasFull(cam2) && matrizHasFull(cam3) && matrizHasFull(cam4) && matrizHasFull(cam5);
+	}
+
 	public static boolean validaCPF(String CPF) {
 	    
 		if (CPF.equals("00000000000") ||

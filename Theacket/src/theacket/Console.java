@@ -42,6 +42,14 @@ public class Console {
 		} while (!comando.equals("sair"));
 	}
 
+	public static void custoPoltrona() {
+		System.out.println("Poltrona Plateia A:    | R$40,00");
+		System.out.println("Poltrona Plateia B:    | R$60,00");
+		System.out.println("Poltrona Camarote:     | R$80,00");
+		System.out.println("Poltrona Frisa:        | R$120,00");
+		System.out.println("Poltrona Balcão Nobre: | R$250,00");
+	}
+
 	public static void compraIngresso() {
 		String numCPF;
 		do {
@@ -76,6 +84,12 @@ public class Console {
 					break;
 				case '3':
 					if (Cliente.allFrisasHasFull()) {
+						errorMes(areaInvalid);
+						val = false;
+					}
+					break;
+				case '4':
+					if (Cliente.allFrisasHasCam()) {
 						errorMes(areaInvalid);
 						val = false;
 					}
@@ -125,6 +139,13 @@ public class Console {
 						custoCliente += compraFrisa();
 					}
 					break;
+				case '4':
+					if (Cliente.allFrisasHasCam()) {
+						val = false;
+					} else {
+						custoCliente += compraCam();
+					}
+					break;
 				case '5':
 					if (Cliente.matrizHasFull(Cliente.BalcaoNobre)) {
 						val = false;
@@ -169,22 +190,6 @@ public class Console {
 			System.out.println(colorize("[PAY] Pagamento concluído!", GREEN_TEXT()));
 		}
 		inputPoltronaIsCanceled = false;
-	}
-
-	public static void custoPoltrona() {
-		System.out.println("Poltrona Plateia A:    | R$40,00");
-		System.out.println("Poltrona Plateia B:    | R$60,00");
-		System.out.println("Poltrona Camarote:     | R$80,00");
-		System.out.println("Poltrona Frisa:        | R$120,00");
-		System.out.println("Poltrona Balcão Nobre: | R$250,00");
-	}
-
-	public static void errorMes(String text) {
-		System.out.print(colorize("[ERRO] " + text, RED_TEXT()));
-	}
-
-	public static void avisoMes(String text) {
-		System.out.print(colorize("[AVISO] " + text, YELLOW_TEXT()));
 	}
 
 	public static double compraFrisa() {
@@ -325,6 +330,128 @@ public class Console {
 		return custoCliente;
 	}
 
+	public static double compraCam() {
+		mostraCam();
+		char area;
+		boolean val = true;
+		String areaInvalid = "Camarote cheio!\n";
+		do {
+			System.out.print(colorize("[FRISA]", CYAN_TEXT()) + " Informe o camarote desejado: ");
+			area = userInput.next().charAt(0);
+			switch (area) {
+				case '1':
+					if (Cliente.matrizHasFull(Cliente.cam1)) {
+						errorMes(areaInvalid);
+						val = false;
+					}
+					break;
+				case '2':
+					if (Cliente.matrizHasFull(Cliente.cam2)) {
+						errorMes(areaInvalid);
+						val = false;
+					}
+					break;
+				case '3':
+					if (Cliente.matrizHasFull(Cliente.cam3)) {
+						errorMes(areaInvalid);
+						val = false;
+					}
+					break;
+				case '4':
+					if (Cliente.matrizHasFull(Cliente.cam4)) {
+						errorMes(areaInvalid);
+						val = false;
+					}
+					break;
+				case '5':
+					if (Cliente.matrizHasFull(Cliente.cam5)) {
+						errorMes(areaInvalid);
+						val = false;
+					}
+					break;
+				default:
+					errorMes("Área \"" + area + "\" inválida!\n");
+					val = false;
+			}
+
+		} while (!val);
+
+		double custoCliente = 0;
+		char escolha = 'N';
+		val = true;
+		do {
+			switch (area) {
+				case '1':
+					if (Cliente.matrizHasFull(Cliente.cam1)) {
+						val = false;
+					} else {
+						System.out.println(colorize("#Camarote 1:", title));
+						mostraPoltrona(Cliente.cam1);
+						inputPoltrona(Cliente.cam1);
+						custoCliente += Ingresso.getPreco("c");
+					}
+					break;
+				case '2':
+					if (Cliente.matrizHasFull(Cliente.cam2)) {
+						val = false;
+					} else {
+						System.out.println(colorize("#Camarote 2:", title));
+						mostraPoltrona(Cliente.cam2);
+						inputPoltrona(Cliente.cam2);
+						custoCliente += Ingresso.getPreco("c");
+					}
+					break;
+				case '3':
+					if (Cliente.matrizHasFull(Cliente.cam3)) {
+						val = false;
+					} else {
+						System.out.println(colorize("#Camarote 3:", title));
+						mostraPoltrona(Cliente.cam3);
+						inputPoltrona(Cliente.cam3);
+						custoCliente += Ingresso.getPreco("c");
+					}
+					break;
+				case '4':
+					if (Cliente.matrizHasFull(Cliente.cam4)) {
+						val = false;
+					} else {
+						System.out.println(colorize("#Camarote 4:", title));
+						mostraPoltrona(Cliente.cam4);
+						inputPoltrona(Cliente.cam4);
+						custoCliente += Ingresso.getPreco("c");
+					}
+					break;
+				case '5':
+					if (Cliente.matrizHasFull(Cliente.cam5)) {
+						val = false;
+					} else {
+						System.out.println(colorize("#Camarote 5:", title));
+						mostraPoltrona(Cliente.cam5);
+						inputPoltrona(Cliente.cam5);
+						custoCliente += Ingresso.getPreco("c");
+					}
+					break;
+			}
+
+			if (!inputPoltronaIsCanceled) {
+				if (val) {
+					System.out.print("Deseja comprar mais poltronas desse camarote: [s/n] ");
+					escolha = Character.toUpperCase(userInput.next().charAt(0));
+
+					while (escolha != 'S' && escolha != 'N') {
+						errorMes("Entrada inválida! Informe novamente: ");
+						escolha = Character.toUpperCase(userInput.next().charAt(0));
+					}
+				} else {
+					avisoMes(areaInvalid);
+					escolha = 'N';
+				}
+			}
+
+		} while (escolha == 'S');
+		return custoCliente;
+	}
+
 	public static int validaEntradaInt() {
 		int input;
 		while (!userInput.hasNextInt()) {
@@ -445,6 +572,12 @@ public class Console {
 			text += colorize(" [3] Frisas ", BLACK_TEXT(), GREEN_BACK());
 		}
 		text += "\n";
+		if (Cliente.allFrisasHasCam()) {
+			text += colorize(" [4] Camarotes ", RED_BACK());
+		} else {
+			text += colorize(" [4] Camarotes ", BLACK_TEXT(), GREEN_BACK());
+		}
+		text += "\n";
 		if (Cliente.matrizHasFull(Cliente.BalcaoNobre)) {
 			text += colorize(" [5] Balcão Nobre ", RED_BACK());
 		} else {
@@ -455,13 +588,6 @@ public class Console {
 		System.out.println(text);
 		System.out.println("Legenda: ");
 		System.out.println(colorize("    ", RED_BACK()) + " Todo ocupado | " + colorize("    ", GREEN_BACK()) + " Lugares livres");
-
-		//System.out.println(" [1] Plateia A    | " +
-		//		"[2] Plateia B\n" +
-		//		" [3] Frisas       | " +
-		//		"[4] Camarotes\n" +
-		//		" [5] Balcão Nobre | " +
-		//		"[6] Cancelar");
 	}
 
 	public static void mostraFrisas() {
@@ -508,6 +634,44 @@ public class Console {
 		System.out.println(colorize("    ", RED_BACK()) + " Todo ocupado | " + colorize("    ", GREEN_BACK()) + " Lugares livres");
 	}
 
+	public static void mostraCam() {
+		System.out.println(colorize("#Menu Camarotes:", title));
+		String text = "";
+		if (Cliente.matrizHasFull(Cliente.frisa1)) {
+			text += colorize(" [1] Camarote 1 ", RED_BACK());
+		} else {
+			text += colorize(" [1] Camarote 1 ", BLACK_TEXT(), GREEN_BACK());
+		}
+		text += "\n";
+		if (Cliente.matrizHasFull(Cliente.cam2)) {
+			text += colorize(" [2] Camarote 2 ", RED_BACK());
+		} else {
+			text += colorize(" [2] Camarote 2 ", BLACK_TEXT(), GREEN_BACK());
+		}
+		text += "\n";
+		if (Cliente.matrizHasFull(Cliente.cam3)) {
+			text += colorize(" [3] Camarote 3 ", RED_BACK());
+		} else {
+			text += colorize(" [3] Camarote 3 ", BLACK_TEXT(), GREEN_BACK());
+		}
+		text += "\n";
+		if (Cliente.matrizHasFull(Cliente.cam4)) {
+			text += colorize(" [4] Camarote 4 ", RED_BACK());
+		} else {
+			text += colorize(" [4] Camarote 4 ", BLACK_TEXT(), GREEN_BACK());
+		}
+		text += "\n";
+		if (Cliente.matrizHasFull(Cliente.cam5)) {
+			text += colorize(" [5] Camarote 5 ", RED_BACK());
+		} else {
+			text += colorize(" [5] Camarote 5 ", BLACK_TEXT(), GREEN_BACK());
+		}
+
+		System.out.println(text);
+		System.out.println("Legenda: ");
+		System.out.println(colorize("    ", RED_BACK()) + " Todo ocupado | " + colorize("    ", GREEN_BACK()) + " Lugares livres");
+	}
+
 	public static void imprimiLogo() {
 		System.out.println(" _____  _                         _          _   \n" +
 				"|_   _|| |                       | |        | |  \n" +
@@ -524,5 +688,13 @@ public class Console {
 				"ajuda    ver os comandos disponíveis\n" +
 				"adm      entrar no modo administrativo\n" +
 				"sair     sair do programa");
+	}
+
+	public static void errorMes(String text) {
+		System.out.print(colorize("[ERRO] " + text, RED_TEXT()));
+	}
+
+	public static void avisoMes(String text) {
+		System.out.print(colorize("[AVISO] " + text, YELLOW_TEXT()));
 	}
 }
