@@ -64,13 +64,13 @@ public class Console {
 		do {
 			System.out.print(colorize("[PEÇA]", CYAN_TEXT()) + " Informe a Peça: ");
 			pecaChar = userInput.next().charAt(0);
-			if (pecaChar != '1' && pecaChar != '2' && pecaChar != '3'){
+			if (pecaChar != '1' && pecaChar != '2'){
 				errorMes("Peça inválida!\n");
 			} else {
 				peca = Character.getNumericValue(pecaChar);
 			}
 
-		} while(pecaChar != '1' && pecaChar != '2' && pecaChar != '3');
+		} while(pecaChar != '1' && pecaChar != '2');
 
 		int sess = 0;
 		char sessChar;
