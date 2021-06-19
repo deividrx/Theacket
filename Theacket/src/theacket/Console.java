@@ -61,6 +61,7 @@ public class Console {
 	public static void compraIngresso() {
 		int peca = 0;
 		char pecaChar;
+		mostraPeca();
 		do {
 			System.out.print(colorize("[PEÇA]", CYAN_TEXT()) + " Informe a Peça: ");
 			pecaChar = userInput.next().charAt(0);
@@ -700,6 +701,26 @@ public class Console {
 			text.append(colorize(" [3] Noite ", RED_BACK()));
 		} else {
 			text.append(colorize(" [3] Noite ", BLACK_TEXT(), GREEN_BACK()));
+		}
+		text.append("\n");
+		System.out.print(text);
+		System.out.println("Legenda: ");
+		System.out.println(colorize("    ", RED_BACK()) + " Toda ocupada | " + colorize("    ", GREEN_BACK()) + " Lugares livres");
+	}
+
+	public static void mostraPeca() {
+		System.out.println(colorize("#Menu Peça: ", title));
+		StringBuilder text = new StringBuilder();
+		if (Cliente.pecaHasFull(1)) {
+			text.append(colorize(" [1] " + Cliente.pecasInf[0][0] + " ", RED_BACK()));
+		} else {
+			text.append(colorize(" [1] " + Cliente.pecasInf[0][0] + " ", BLACK_TEXT(), GREEN_BACK()));
+		}
+		text.append("\n");
+		if (Cliente.pecaHasFull(2)) {
+			text.append(colorize(" [2] " + Cliente.pecasInf[1][0] + " ", RED_BACK()));
+		} else {
+			text.append(colorize(" [2] " + Cliente.pecasInf[1][0] + " ", BLACK_TEXT(), GREEN_BACK()));
 		}
 		text.append("\n");
 		System.out.print(text);

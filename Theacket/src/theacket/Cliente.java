@@ -7,6 +7,7 @@ import java.util.Map;
 public class Cliente {
 
 	public static Map<Integer, Integer[][]> mapa = new HashMap<>();
+	public static String[][] pecasInf = {{"Romeu e Julieta (William Shakespeare)"}, {"Hairspray (John Waters)"}};
 
 	public static void preecherMapa() {
 		int epCam = 10, epFrisa = 5, c = 1;
@@ -107,9 +108,6 @@ public class Cliente {
 		mapa.put(82, new Integer[c][epFrisa]); //camarote 3
 		mapa.put(83, new Integer[c][epFrisa]); //camarote 4
 		mapa.put(84, new Integer[c][epFrisa]); //camarote 5
-
-		//Matriz
-		//mapa
 
 		//Resolver o NullPointerException
 		for (int a = 1; a <= mapa.size(); a++) {
@@ -218,6 +216,37 @@ public class Cliente {
 		boolean val = true;
 		int p = getMatrizesSess(sess, peca);
 		for (int a = (1 + p); a <= (14 + p); a++) {
+			for (int i = 0; i < mapa.get(a).length; i++) {
+				for (int j = 0; j < mapa.get(a)[0].length; j++) {
+					if (mapa.get(a)[i][j] == 0) {
+						val = false;
+						break;
+					}
+				}
+			}
+		}
+		return val;
+	}
+
+	public static int getMatrizPeca(int peca) {
+		int a = 0;
+		switch (peca) {
+			case 1:
+				a = 0;
+				break;
+			case 2:
+				a = 42;
+				break;
+		}
+		return a;
+	}
+
+
+
+	public static boolean pecaHasFull(int peca) {
+		boolean val = true;
+		int p = getMatrizPeca(peca);
+		for (int a = (1 + p); a <= (42 + p); a++) {
 			for (int i = 0; i < mapa.get(a).length; i++) {
 				for (int j = 0; j < mapa.get(a)[0].length; j++) {
 					if (mapa.get(a)[i][j] == 0) {
