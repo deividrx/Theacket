@@ -22,27 +22,27 @@ public class Cliente {
 		mapa.put(7, new Integer[c][epFrisa]); //Frisa 4
 		mapa.put(8, new Integer[c][epFrisa]); //Frisa 5
 		mapa.put(9, new Integer[c][epFrisa]); //Frisa 6
-		mapa.put(10, new Integer[c][epFrisa]); //camarote 1
-		mapa.put(11, new Integer[c][epFrisa]); //camarote 2
-		mapa.put(12, new Integer[c][epFrisa]); //camarote 3
-		mapa.put(13, new Integer[c][epFrisa]); //camarote 4
-		mapa.put(14, new Integer[c][epFrisa]); //camarote 5
+		mapa.put(10, new Integer[c][epCam]); //camarote 1
+		mapa.put(11, new Integer[c][epCam]); //camarote 2
+		mapa.put(12, new Integer[c][epCam]); //camarote 3
+		mapa.put(13, new Integer[c][epCam]); //camarote 4
+		mapa.put(14, new Integer[c][epCam]); //camarote 5
 
 		//Sessão tarde:
 		mapa.put(15, new Integer[5][5]); //Plateia A
 		mapa.put(16, new Integer[10][10]); //Plateia B
 		mapa.put(17, new Integer[5][10]); //Balcão Nobre
-		mapa.put(18, new Integer[c][epFrisa]); //Frisa 1
+		mapa.put(18, new Integer[c][epCam]); //Frisa 1
 		mapa.put(19, new Integer[c][epFrisa]); //Frisa 2
 		mapa.put(20, new Integer[c][epFrisa]); //Frisa 3
 		mapa.put(21, new Integer[c][epFrisa]); //Frisa 4
 		mapa.put(22, new Integer[c][epFrisa]); //Frisa 5
 		mapa.put(23, new Integer[c][epFrisa]); //Frisa 6
-		mapa.put(24, new Integer[c][epFrisa]); //camarote 1
-		mapa.put(25, new Integer[c][epFrisa]); //camarote 2
-		mapa.put(26, new Integer[c][epFrisa]); //camarote 3
-		mapa.put(27, new Integer[c][epFrisa]); //camarote 4
-		mapa.put(28, new Integer[c][epFrisa]); //camarote 5
+		mapa.put(24, new Integer[c][epCam]); //camarote 1
+		mapa.put(25, new Integer[c][epCam]); //camarote 2
+		mapa.put(26, new Integer[c][epCam]); //camarote 3
+		mapa.put(27, new Integer[c][epCam]); //camarote 4
+		mapa.put(28, new Integer[c][epCam]); //camarote 5
 
 		//Sessão noite:
 		mapa.put(29, new Integer[5][5]); //Plateia A
@@ -54,11 +54,11 @@ public class Cliente {
 		mapa.put(35, new Integer[c][epFrisa]); //Frisa 4
 		mapa.put(36, new Integer[c][epFrisa]); //Frisa 5
 		mapa.put(37, new Integer[c][epFrisa]); //Frisa 6
-		mapa.put(38, new Integer[c][epFrisa]); //camarote 1
-		mapa.put(39, new Integer[c][epFrisa]); //camarote 2
-		mapa.put(40, new Integer[c][epFrisa]); //camarote 3
-		mapa.put(41, new Integer[c][epFrisa]); //camarote 4
-		mapa.put(42, new Integer[c][epFrisa]); //camarote 5
+		mapa.put(38, new Integer[c][epCam]); //camarote 1
+		mapa.put(39, new Integer[c][epCam]); //camarote 2
+		mapa.put(40, new Integer[c][epCam]); //camarote 3
+		mapa.put(41, new Integer[c][epCam]); //camarote 4
+		mapa.put(42, new Integer[c][epCam]); //camarote 5
 
 		//Peça 2
 		//Sessão manhã:
@@ -71,11 +71,11 @@ public class Cliente {
 		mapa.put(49, new Integer[c][epFrisa]); //Frisa 4
 		mapa.put(50, new Integer[c][epFrisa]); //Frisa 5
 		mapa.put(51, new Integer[c][epFrisa]); //Frisa 6
-		mapa.put(52, new Integer[c][epFrisa]); //camarote 1
-		mapa.put(53, new Integer[c][epFrisa]); //camarote 2
-		mapa.put(54, new Integer[c][epFrisa]); //camarote 3
-		mapa.put(55, new Integer[c][epFrisa]); //camarote 4
-		mapa.put(56, new Integer[c][epFrisa]); //camarote 5
+		mapa.put(52, new Integer[c][epCam]); //camarote 1
+		mapa.put(53, new Integer[c][epCam]); //camarote 2
+		mapa.put(54, new Integer[c][epCam]); //camarote 3
+		mapa.put(55, new Integer[c][epCam]); //camarote 4
+		mapa.put(56, new Integer[c][epCam]); //camarote 5
 
 		//Sessão tarde:
 		mapa.put(57, new Integer[5][5]); //Plateia A
@@ -87,11 +87,11 @@ public class Cliente {
 		mapa.put(63, new Integer[c][epFrisa]); //Frisa 4
 		mapa.put(64, new Integer[c][epFrisa]); //Frisa 5
 		mapa.put(65, new Integer[c][epFrisa]); //Frisa 6
-		mapa.put(66, new Integer[c][epFrisa]); //camarote 1
-		mapa.put(67, new Integer[c][epFrisa]); //camarote 2
-		mapa.put(68, new Integer[c][epFrisa]); //camarote 3
-		mapa.put(69, new Integer[c][epFrisa]); //camarote 4
-		mapa.put(70, new Integer[c][epFrisa]); //camarote 5
+		mapa.put(66, new Integer[c][epCam]); //camarote 1
+		mapa.put(67, new Integer[c][epCam]); //camarote 2
+		mapa.put(68, new Integer[c][epCam]); //camarote 3
+		mapa.put(69, new Integer[c][epCam]); //camarote 4
+		mapa.put(70, new Integer[c][epCam]); //camarote 5
 
 		//Sessão noite:
 		mapa.put(71, new Integer[5][5]); //Plateia A
@@ -103,11 +103,11 @@ public class Cliente {
 		mapa.put(77, new Integer[c][epFrisa]); //Frisa 4
 		mapa.put(78, new Integer[c][epFrisa]); //Frisa 5
 		mapa.put(79, new Integer[c][epFrisa]); //Frisa 6
-		mapa.put(80, new Integer[c][epFrisa]); //camarote 1
-		mapa.put(81, new Integer[c][epFrisa]); //camarote 2
-		mapa.put(82, new Integer[c][epFrisa]); //camarote 3
-		mapa.put(83, new Integer[c][epFrisa]); //camarote 4
-		mapa.put(84, new Integer[c][epFrisa]); //camarote 5
+		mapa.put(80, new Integer[c][epCam]); //camarote 1
+		mapa.put(81, new Integer[c][epCam]); //camarote 2
+		mapa.put(82, new Integer[c][epCam]); //camarote 3
+		mapa.put(83, new Integer[c][epCam]); //camarote 4
+		mapa.put(84, new Integer[c][epCam]); //camarote 5
 
 		//Resolver o NullPointerException
 		for (int a = 1; a <= mapa.size(); a++) {
