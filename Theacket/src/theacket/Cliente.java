@@ -241,8 +241,6 @@ public class Cliente {
 		return a;
 	}
 
-
-
 	public static boolean pecaHasFull(int peca) {
 		boolean val = true;
 		int p = getMatrizPeca(peca);
