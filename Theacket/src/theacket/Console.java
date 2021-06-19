@@ -59,9 +59,22 @@ public class Console {
 	}
 
 	public static void compraIngresso() {
+		int peca = 0;
+		char pecaChar;
+		do {
+			System.out.print(colorize("[PEÇA]", CYAN_TEXT()) + " Informe a Peça: ");
+			pecaChar = userInput.next().charAt(0);
+			if (pecaChar != '1' && pecaChar != '2' && pecaChar != '3'){
+				errorMes("Peça inválida!\n");
+			} else {
+				peca = Character.getNumericValue(pecaChar);
+			}
+
+		} while(pecaChar != '1' && pecaChar != '2' && pecaChar != '3');
+
 		int sess = 0;
 		char sessChar;
-		mostraSess();
+		mostraSess(peca);
 		do {
 			System.out.print(colorize("[SESS]", CYAN_TEXT()) + " Informe a Sessão: ");
 			sessChar = userInput.next().charAt(0);
@@ -83,8 +96,8 @@ public class Console {
 
 		} while(!Cliente.validaCPF(numCPF));
 
-		mostraArea(sess);
-		int p = getMatrizesSess(sess);
+		mostraArea(sess, peca);
+		int p = getMatrizesSess(sess, peca);
 		char area;
 		boolean val = true;
 		do {
@@ -106,13 +119,13 @@ public class Console {
 					}
 					break;
 				case '3':
-					if (Cliente.allFrisasHasFull(sess)) {
+					if (Cliente.allFrisasHasFull(sess, peca)) {
 						errorMes(areaInvalid);
 						val = false;
 					}
 					break;
 				case '4':
-					if (Cliente.allCamHasFull(sess)) {
+					if (Cliente.allCamHasFull(sess, peca)) {
 						errorMes(areaInvalid);
 						val = false;
 					}
@@ -156,17 +169,17 @@ public class Console {
 					}
 					break;
 				case '3':
-					if (Cliente.allFrisasHasFull(sess)) {
+					if (Cliente.allFrisasHasFull(sess, peca)) {
 						val = false;
 					} else {
-						custoCliente += compraFrisa(sess);
+						custoCliente += compraFrisa(sess, peca);
 					}
 					break;
 				case '4':
-					if (Cliente.allCamHasFull(sess)) {
+					if (Cliente.allCamHasFull(sess, peca)) {
 						val = false;
 					} else {
-						custoCliente += compraCam(sess);
+						custoCliente += compraCam(sess, peca);
 					}
 					break;
 				case '5':
@@ -215,9 +228,9 @@ public class Console {
 		inputPoltronaIsCanceled = false;
 	}
 
-	public static double compraFrisa(int sess) {
-		mostraFrisas(sess);
-		int p = getMatrizesSess(sess);
+	public static double compraFrisa(int sess, int peca) {
+		mostraFrisas(sess, peca);
+		int p = getMatrizesSess(sess, peca);
 		char area;
 		boolean val = true;
 		String areaInvalid = "Frisa cheia!\n";
@@ -354,10 +367,10 @@ public class Console {
 		return custoCliente;
 	}
 
-	public static double compraCam(int sess) {
-		mostraCam(sess);
+	public static double compraCam(int sess, int peca) {
+		mostraCam(sess, peca);
 		char area;
-		int p = getMatrizesSess(sess);
+		int p = getMatrizesSess(sess, peca);
 		boolean val = true;
 		String areaInvalid = "Camarote cheio!\n";
 		do {
@@ -565,8 +578,8 @@ public class Console {
 		} while (!val);
 	}
 
-	public static void mostraArea(int sess) {
-		int p = getMatrizesSess(sess);
+	public static void mostraArea(int sess, int peca) {
+		int p = getMatrizesSess(sess, peca);
 		System.out.println(colorize("#Menu Áreas:", title));
 		String text = "";
 		if (Cliente.matrizHasFull(Cliente.mapa.get(1 + p))) {
@@ -581,13 +594,13 @@ public class Console {
 			text += colorize(" [2] Plateia B ", BLACK_TEXT(), GREEN_BACK());
 		}
 		text += "\n";
-		if (Cliente.allFrisasHasFull(sess)) {
+		if (Cliente.allFrisasHasFull(sess, peca)) {
 			text += colorize(" [3] Frisas ", RED_BACK());
 		} else {
 			text += colorize(" [3] Frisas ", BLACK_TEXT(), GREEN_BACK());
 		}
 		text += "\n";
-		if (Cliente.allCamHasFull(sess)) {
+		if (Cliente.allCamHasFull(sess, peca)) {
 			text += colorize(" [4] Camarotes ", RED_BACK());
 		} else {
 			text += colorize(" [4] Camarotes ", BLACK_TEXT(), GREEN_BACK());
@@ -603,9 +616,9 @@ public class Console {
 		System.out.println(colorize("    ", RED_BACK()) + " Todo ocupado | " + colorize("    ", GREEN_BACK()) + " Lugares livres");
 	}
 
-	public static void mostraFrisas(int sess) {
+	public static void mostraFrisas(int sess, int peca) {
 		System.out.println(colorize("#Menu Frisas:", title));
-		int p = getMatrizesSess(sess);
+		int p = getMatrizesSess(sess, peca);
 		StringBuilder text = new StringBuilder();
 		int count = 1;
 		for (int i = (4 + p); i <= (9 + p); i++) {
@@ -622,9 +635,9 @@ public class Console {
 		System.out.println(colorize("    ", RED_BACK()) + " Todo ocupado | " + colorize("    ", GREEN_BACK()) + " Lugares livres");
 	}
 
-	public static void mostraCam(int sess) {
+	public static void mostraCam(int sess, int peca) {
 		System.out.println(colorize("#Menu Camarotes:", title));
-		int p = getMatrizesSess(sess);
+		int p = getMatrizesSess(sess, peca);
 		StringBuilder text = new StringBuilder();
 		int count = 1;
 		for (int i = (10 + p); i <= (14 + p); i++) {
@@ -667,24 +680,23 @@ public class Console {
 		System.out.print(colorize("[AVISO] " + text, YELLOW_TEXT()));
 	}
 
-	public static void mostraSess() {
-		int peca = 1;
+	public static void mostraSess(int peca) {
 		System.out.println(colorize("#Peça " + peca + ":", title));
 		System.out.println(colorize("#Menu sessão:", title));
 		StringBuilder text = new StringBuilder();
-		if (Cliente.sessHasFull(1)) {
+		if (Cliente.sessHasFull(1, peca)) {
 			text.append(colorize(" [1] Manhã ", RED_BACK()));
 		} else {
 			text.append(colorize(" [1] Manhã ", BLACK_TEXT(), GREEN_BACK()));
 		}
 		text.append("\n");
-		if (Cliente.sessHasFull(2)) {
+		if (Cliente.sessHasFull(2, peca)) {
 			text.append(colorize(" [2] Tarde ", RED_BACK()));
 		} else {
 			text.append(colorize(" [2] Tarde ", BLACK_TEXT(), GREEN_BACK()));
 		}
 		text.append("\n");
-		if (Cliente.sessHasFull(3)) {
+		if (Cliente.sessHasFull(3, peca)) {
 			text.append(colorize(" [3] Noite ", RED_BACK()));
 		} else {
 			text.append(colorize(" [3] Noite ", BLACK_TEXT(), GREEN_BACK()));
