@@ -631,7 +631,7 @@ public class Console {
 			if (Cliente.matrizHasFull(Cliente.mapa.get(i))) {
 				text.append(colorize(" [" + count + "] Camarote " + count + " ", RED_BACK()));
 			} else {
-				text.append(colorize(" [" + count + "] Frisa " + count + " ", BLACK_TEXT(), GREEN_BACK()));
+				text.append(colorize(" [" + count + "] Camarote " + count + " ", BLACK_TEXT(), GREEN_BACK()));
 			}
 			text.append("\n");
 			count++;
