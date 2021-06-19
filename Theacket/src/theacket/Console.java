@@ -25,14 +25,14 @@ public class Console {
 			comando = userInput.next();
 
 			switch (comando) {
-				case "comin":
+				case "comprar":
 					if (!Cliente.allMatrizHasFull()) {
 						compraIngresso();
 					} else {
 						avisoMes("O teatro está com todos os lugares de todas as sessões de todas as peças ocupados!\n");
 					}
 					break;
-				case "custPol":
+				case "valor":
 					custoPoltrona();
 					break;
 				case "sair":
@@ -652,8 +652,8 @@ public class Console {
 
 	public static void imprimiComandos() {
 		System.out.println(colorize("#Comandos:\n", title) +
-				"comin    comprar ingresso\n" +
-				"custPol  ver custo das poltronas\n" +
+				"comprar    comprar ingresso\n" +
+				"valor  ver custo das poltronas\n" +
 				"ajuda    ver os comandos disponíveis\n" +
 				"adm      entrar no modo administrativo\n" +
 				"sair     sair do programa");
