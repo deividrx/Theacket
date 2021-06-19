@@ -652,8 +652,8 @@ public class Console {
 
 	public static void imprimiComandos() {
 		System.out.println(colorize("#Comandos:\n", title) +
-				"comprar    comprar ingresso\n" +
-				"valor  ver custo das poltronas\n" +
+				"comprar  comprar ingresso\n" +
+				"valor    ver custo das poltronas\n" +
 				"ajuda    ver os comandos disponíveis\n" +
 				"adm      entrar no modo administrativo\n" +
 				"sair     sair do programa");
