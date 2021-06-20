@@ -139,6 +139,48 @@ public class Cliente {
 
 	}
 
+	public static String getPeca(int peca){
+		return pecasInf[peca - 1][0];
+	}
+
+	public static String getSess(int sess) {
+		String sessText = "";
+		switch (sess) {
+			case 1:
+				sessText = "Manhã";
+				break;
+			case 2:
+				sessText = "Tarde";
+				break;
+			case 3:
+				sessText = "Noite";
+				break;
+		}
+		return sessText;
+	}
+
+	public static String getArea(int area, int num) {
+		String areaText = "";
+		switch (area) {
+			case 1:
+				areaText = "Plateia A";
+				break;
+			case 2:
+				areaText = "Planteia B";
+				break;
+			case 3:
+				areaText = "Frisa " + num;
+				break;
+			case 4:
+				areaText = "Camarote " + num;
+				break;
+			case 5:
+				areaText = "Balcão Nobre";
+				break;
+		}
+		return areaText;
+	}
+
 	public static boolean allMatrizHasFull() {
 		boolean val = true;
 		for (int a = 1; a <= mapa.size(); a++) {

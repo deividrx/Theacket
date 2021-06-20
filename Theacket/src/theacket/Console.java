@@ -4,7 +4,7 @@ import consoleColor.AnsiFormat;
 
 import static consoleColor.Ansi.colorize;
 import static consoleColor.Attribute.*;
-import static theacket.Cliente.getMatrizesSess;
+import static theacket.Cliente.*;
 
 import java.util.Scanner;
 
@@ -14,6 +14,8 @@ public class Console {
 	public static char[] alfabeto = {'a','b','c','d','e','f','g','h','i','j','k','l','m','n','o','p','q','r','s','t','u','v','w','x','y','z'};
 	public static AnsiFormat title = new AnsiFormat(BRIGHT_BLUE_TEXT(), BOLD());
 	public static boolean inputPoltronaIsCanceled;
+	public static int num;
+	public static String poltronas = "";
 
 	public static void main(String[] args) {
 		Cliente.preencherMapa();
@@ -43,16 +45,6 @@ public class Console {
 					imprimiComandos();
 					break;
 				case "ingresso":
-					String numCPF;
-					do {
-						System.out.print(colorize("[CPF]", CYAN_TEXT()) + " Informe o seu CPF: ");
-						numCPF = userInput.next();
-
-						if (!Cliente.validaCPF(numCPF)){
-							errorMes("CPF inválido!\n");
-						}
-
-					} while(!Cliente.validaCPF(numCPF));
 					break;
 				default:
 					errorMes("Comando \"" + comando + "\" inválido!\n");
@@ -61,6 +53,26 @@ public class Console {
 		} while (!comando.equals("sair"));
 		userInput.close();
 		System.exit(0);
+	}
+
+	public static void mostraIngresso() {
+		String numCPF;
+		do {
+			System.out.print(colorize("[CPF]", CYAN_TEXT()) + " Informe o seu CPF: ");
+			numCPF = userInput.next();
+
+			if (!Cliente.validaCPF(numCPF)){
+				errorMes("CPF inválido!\n");
+			}
+
+		} while(!Cliente.validaCPF(numCPF));
+
+		//for (int m = 1; m <= mapaCliente.size(); m++) {
+		//	for (int i )
+		//}
+
+
+
 	}
 
 	public static void custoPoltrona() {
@@ -246,6 +258,9 @@ public class Console {
 				escolha = Character.toUpperCase(userInput.next().charAt(0));
 			}
 
+			Ingresso.imIngresso(numCPF, Cliente.getPeca(peca), getArea(Character.getNumericValue(area), num), poltronas, getSess(sess), custoCliente);
+			poltronas = "";
+
 		}
 		inputPoltronaIsCanceled = false;
 	}
@@ -264,36 +279,42 @@ public class Console {
 					if (Cliente.matrizHasFull(Cliente.mapa.get(4 + p))) {
 						errorMes(areaInvalid);
 						val = false;
+						num = 1;
 					}
 					break;
 				case '2':
 					if (Cliente.matrizHasFull(Cliente.mapa.get(5 + p))) {
 						errorMes(areaInvalid);
 						val = false;
+						num = 2;
 					}
 					break;
 				case '3':
 					if (Cliente.matrizHasFull(Cliente.mapa.get(6 + p))) {
 						errorMes(areaInvalid);
 						val = false;
+						num = 3;
 					}
 					break;
 				case '4':
 					if (Cliente.matrizHasFull(Cliente.mapa.get(7 + p))) {
 						errorMes(areaInvalid);
 						val = false;
+						num = 4;
 					}
 					break;
 				case '5':
 					if (Cliente.matrizHasFull(Cliente.mapa.get(8 + p))) {
 						errorMes(areaInvalid);
 						val = false;
+						num = 5;
 					}
 					break;
 				case '6':
 					if (Cliente.matrizHasFull(Cliente.mapa.get(9 + p))) {
 						errorMes(areaInvalid);
 						val = false;
+						num = 6;
 					}
 					break;
 				default:
@@ -403,30 +424,35 @@ public class Console {
 					if (Cliente.matrizHasFull(Cliente.mapa.get(10 + p))) {
 						errorMes(areaInvalid);
 						val = false;
+						num = 1;
 					}
 					break;
 				case '2':
 					if (Cliente.matrizHasFull(Cliente.mapa.get(11 + p))) {
 						errorMes(areaInvalid);
 						val = false;
+						num = 2;
 					}
 					break;
 				case '3':
 					if (Cliente.matrizHasFull(Cliente.mapa.get(12 + p))) {
 						errorMes(areaInvalid);
 						val = false;
+						num = 3;
 					}
 					break;
 				case '4':
 					if (Cliente.matrizHasFull(Cliente.mapa.get(13 + p))) {
 						errorMes(areaInvalid);
 						val = false;
+						num = 4;
 					}
 					break;
 				case '5':
 					if (Cliente.matrizHasFull(Cliente.mapa.get(14 + p))) {
 						errorMes(areaInvalid);
 						val = false;
+						num = 5;
 					}
 					break;
 				default:
@@ -580,7 +606,7 @@ public class Console {
 							} else {
 								if (plateia[indexLine][indexColumn] == 0) {
 									plateia[indexLine][indexColumn] = 1;
-
+									poltronas += poltrona + " ";
 
 									val = true;
 								} else {
