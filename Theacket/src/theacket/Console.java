@@ -68,19 +68,17 @@ public class Console {
 
 		} while(!Cliente.validaCPF(numCPF));
 
-		try {
 			for (int m = 1; m <= mapaCliente.size(); m++) {
 				for (int i = 0; i < mapaCliente.get(m).length; i++) {
-					if (mapaCliente.get(m)[i][0].equals(numCPF)) {
-						Ingresso.imIngresso(mapaCliente.get(m)[i][0], mapaCliente.get(m)[i][1], mapaCliente.get(m)[i][2], mapaCliente.get(m)[i][3], mapaCliente.get(m)[i][4], Double.parseDouble(mapaCliente.get(m)[i][5]));
-						break;
+					if (mapaCliente.get(m)[i][0] != null) {
+						if (mapaCliente.get(m)[i][0].equals(numCPF)) {
+							Ingresso.imIngresso(mapaCliente.get(m)[i][0], mapaCliente.get(m)[i][1], mapaCliente.get(m)[i][2], mapaCliente.get(m)[i][3], mapaCliente.get(m)[i][4], Double.parseDouble(mapaCliente.get(m)[i][5]));
+							break;
+						}
 					}
 				}
 			}
 
-  		} catch (NullPointerException mostraIgresso) {
-			System.out.print(" ");
-		}
 	}
 
 	public static void custoPoltrona() {
