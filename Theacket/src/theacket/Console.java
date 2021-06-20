@@ -353,42 +353,36 @@ public class Console {
 					if (Cliente.matrizHasFull(Cliente.mapa.get(4 + p))) {
 						errorMes(areaInvalid);
 						val = false;
-						num = 1;
 					}
 					break;
 				case '2':
 					if (Cliente.matrizHasFull(Cliente.mapa.get(5 + p))) {
 						errorMes(areaInvalid);
 						val = false;
-						num = 2;
 					}
 					break;
 				case '3':
 					if (Cliente.matrizHasFull(Cliente.mapa.get(6 + p))) {
 						errorMes(areaInvalid);
 						val = false;
-						num = 3;
 					}
 					break;
 				case '4':
 					if (Cliente.matrizHasFull(Cliente.mapa.get(7 + p))) {
 						errorMes(areaInvalid);
 						val = false;
-						num = 4;
 					}
 					break;
 				case '5':
 					if (Cliente.matrizHasFull(Cliente.mapa.get(8 + p))) {
 						errorMes(areaInvalid);
 						val = false;
-						num = 5;
 					}
 					break;
 				case '6':
 					if (Cliente.matrizHasFull(Cliente.mapa.get(9 + p))) {
 						errorMes(areaInvalid);
 						val = false;
-						num = 6;
 					}
 					break;
 				default:
@@ -411,6 +405,7 @@ public class Console {
 						mostraPoltrona(Cliente.mapa.get(4 + p));
 						inputPoltrona(Cliente.mapa.get(4 + p));
 						custoCliente += Ingresso.getPreco("f");
+						num = 1;
 					}
 					break;
 				case '2':
@@ -421,6 +416,7 @@ public class Console {
 						mostraPoltrona(Cliente.mapa.get(5 + p));
 						inputPoltrona(Cliente.mapa.get(5 + p));
 						custoCliente += Ingresso.getPreco("f");
+						num = 2;
 					}
 					break;
 				case '3':
@@ -431,6 +427,7 @@ public class Console {
 						mostraPoltrona(Cliente.mapa.get(6 + p));
 						inputPoltrona(Cliente.mapa.get(6 + p));
 						custoCliente += Ingresso.getPreco("f");
+						num = 3;
 					}
 					break;
 				case '4':
@@ -441,6 +438,7 @@ public class Console {
 						mostraPoltrona(Cliente.mapa.get(7 + p));
 						inputPoltrona(Cliente.mapa.get(7 + p));
 						custoCliente += Ingresso.getPreco("f");
+						num = 4;
 					}
 					break;
 				case '5':
@@ -451,6 +449,7 @@ public class Console {
 						mostraPoltrona(Cliente.mapa.get(8 + p));
 						inputPoltrona(Cliente.mapa.get(8 + p));
 						custoCliente += Ingresso.getPreco("f");
+						num = 5;
 					}
 					break;
 				case '6':
@@ -461,6 +460,7 @@ public class Console {
 						mostraPoltrona(Cliente.mapa.get(9 + p));
 						inputPoltrona(Cliente.mapa.get(9 + p));
 						custoCliente += Ingresso.getPreco("f");
+						num = 6;
 					}
 					break;
 			}
@@ -498,35 +498,30 @@ public class Console {
 					if (Cliente.matrizHasFull(Cliente.mapa.get(10 + p))) {
 						errorMes(areaInvalid);
 						val = false;
-						num = 1;
 					}
 					break;
 				case '2':
 					if (Cliente.matrizHasFull(Cliente.mapa.get(11 + p))) {
 						errorMes(areaInvalid);
 						val = false;
-						num = 2;
 					}
 					break;
 				case '3':
 					if (Cliente.matrizHasFull(Cliente.mapa.get(12 + p))) {
 						errorMes(areaInvalid);
 						val = false;
-						num = 3;
 					}
 					break;
 				case '4':
 					if (Cliente.matrizHasFull(Cliente.mapa.get(13 + p))) {
 						errorMes(areaInvalid);
 						val = false;
-						num = 4;
 					}
 					break;
 				case '5':
 					if (Cliente.matrizHasFull(Cliente.mapa.get(14 + p))) {
 						errorMes(areaInvalid);
 						val = false;
-						num = 5;
 					}
 					break;
 				default:
@@ -549,6 +544,7 @@ public class Console {
 						mostraPoltrona(Cliente.mapa.get(10 + p));
 						inputPoltrona(Cliente.mapa.get(10 + p));
 						custoCliente += Ingresso.getPreco("c");
+						num = 1;
 					}
 					break;
 				case '2':
@@ -559,6 +555,7 @@ public class Console {
 						mostraPoltrona(Cliente.mapa.get(11 + p));
 						inputPoltrona(Cliente.mapa.get(11 + p));
 						custoCliente += Ingresso.getPreco("c");
+						num = 2;
 					}
 					break;
 				case '3':
@@ -569,6 +566,7 @@ public class Console {
 						mostraPoltrona(Cliente.mapa.get(12 + p));
 						inputPoltrona(Cliente.mapa.get(12 + p));
 						custoCliente += Ingresso.getPreco("c");
+						num = 3;
 					}
 					break;
 				case '4':
@@ -579,6 +577,7 @@ public class Console {
 						mostraPoltrona(Cliente.mapa.get(13 + p));
 						inputPoltrona(Cliente.mapa.get(13 + p));
 						custoCliente += Ingresso.getPreco("c");
+						num = 4;
 					}
 					break;
 				case '5':
@@ -589,6 +588,7 @@ public class Console {
 						mostraPoltrona(Cliente.mapa.get(14 + p));
 						inputPoltrona(Cliente.mapa.get(14 + p));
 						custoCliente += Ingresso.getPreco("c");
+						num = 5;
 					}
 					break;
 			}
