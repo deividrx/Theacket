@@ -28,7 +28,7 @@ public class Ingresso {
 		return preco;
 	}
 	
-	public static void imprimeingresso(String cpf, String peca, String area, String poltronas, String sessao, Double valor){
+	public static void imprimeingresso(String cpf, String peca, String area, String poltronas, String sessao, double valor){
 		
 		
 		System.out.println("|------------( INGRESSO )-----------|");
@@ -49,7 +49,7 @@ public class Ingresso {
 		System.out.println("|"+poltronas+"                      |");
 		System.out.println("|-----------------------------------|");
 		System.out.println("|(VALOR PAGO):                      |");
-		System.out.println("|"+valor+"                          |");
+		System.out.println("|R$ "+valor+"                       |");
 		System.out.println("|-----------------------------------|");
 		System.out.println("|                                   |");
 		System.out.println("|-----------------------------------|");
