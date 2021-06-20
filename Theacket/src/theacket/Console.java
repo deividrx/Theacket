@@ -16,7 +16,8 @@ public class Console {
 	public static boolean inputPoltronaIsCanceled;
 
 	public static void main(String[] args) {
-		Cliente.preecherMapa();
+		Cliente.preencherMapa();
+		Cliente.peencherMapaCli();
 		imprimiLogo();
 		imprimiComandos();
 		String comando;
@@ -40,6 +41,18 @@ public class Console {
 					break;
 				case "ajuda":
 					imprimiComandos();
+					break;
+				case "ingresso":
+					String numCPF;
+					do {
+						System.out.print(colorize("[CPF]", CYAN_TEXT()) + " Informe o seu CPF: ");
+						numCPF = userInput.next();
+
+						if (!Cliente.validaCPF(numCPF)){
+							errorMes("CPF inválido!\n");
+						}
+
+					} while(!Cliente.validaCPF(numCPF));
 					break;
 				default:
 					errorMes("Comando \"" + comando + "\" inválido!\n");
@@ -225,6 +238,14 @@ public class Console {
 			}
 
 			System.out.println(colorize("[PAY] Pagamento concluído!", GREEN_TEXT()));
+			System.out.print(colorize("[INGRESSO] ", CYAN_TEXT()) + "Deseja imprimir o ingresso agora? [s/n]");
+			escolha = Character.toUpperCase(userInput.next().charAt(0));
+
+			while (escolha != 'S' && escolha != 'N') {
+				errorMes("Entrada inválida! Informe novamente: ");
+				escolha = Character.toUpperCase(userInput.next().charAt(0));
+			}
+
 		}
 		inputPoltronaIsCanceled = false;
 	}
@@ -668,11 +689,12 @@ public class Console {
 
 	public static void imprimiComandos() {
 		System.out.println(colorize("#Comandos:\n", title) +
-				"comprar  comprar ingresso\n" +
-				"valor    ver custo das poltronas\n" +
-				"ajuda    ver os comandos disponíveis\n" +
-				"adm      entrar no modo administrativo\n" +
-				"sair     sair do programa");
+				"comprar   comprar ingresso\n" +
+				"valor     ver custo das poltronas\n" +
+				"ajuda     ver os comandos disponíveis\n" +
+				"adm       entrar no modo administrativo\n" +
+				"Ingresso  imprime ingresso\n"+
+				"sair      sair do programa");
 	}
 
 	public static void errorMes(String text) {

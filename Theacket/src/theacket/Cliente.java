@@ -8,8 +8,9 @@ public class Cliente {
 
 	public static Map<Integer, Integer[][]> mapa = new HashMap<>();
 	public static String[][] pecasInf = {{"Romeu e Julieta (William Shakespeare)"}, {"Hairspray (John Waters)"}};
+	public static Map<Integer, String[][]> mapaCliente = new HashMap<>();
 
-	public static void preecherMapa() {
+	public static void preencherMapa() {
 		int epCam = 10, epFrisa = 5, c = 1;
 		//Peça 1
 		//Sessão manhã:
@@ -117,6 +118,25 @@ public class Cliente {
 				}
 			}
 		}
+	}
+
+	public static void peencherMapaCli() {
+		int a = 255, b = 5;
+		//Peça 1
+		//Sessão manhã:
+		mapaCliente.put(1,new String[a][b]);
+		//Sessão tarde:
+		mapaCliente.put(2,new String[a][b]);
+		//Sessão noite:
+		mapaCliente.put(3,new String[a][b]);
+		//Peça 2
+		//Sessão manhã:
+		mapaCliente.put(4,new String[a][b]);
+		//Sessão tarde:
+		mapaCliente.put(5,new String[a][b]);
+		//Sessão noite:
+		mapaCliente.put(6,new String[a][b]);
+
 	}
 
 	public static boolean allMatrizHasFull() {
