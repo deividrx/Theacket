@@ -45,6 +45,7 @@ public class Console {
 					imprimiComandos();
 					break;
 				case "ingresso":
+					mostraIngresso();
 					break;
 				default:
 					errorMes("Comando \"" + comando + "\" inválido!\n");
@@ -67,12 +68,19 @@ public class Console {
 
 		} while(!Cliente.validaCPF(numCPF));
 
-		//for (int m = 1; m <= mapaCliente.size(); m++) {
-		//	for (int i )
-		//}
+		try {
+			for (int m = 1; m <= mapaCliente.size(); m++) {
+				for (int i = 0; i < mapaCliente.get(m).length; i++) {
+					if (mapaCliente.get(m)[i][0].equals(numCPF)) {
+						Ingresso.imIngresso(mapaCliente.get(m)[i][0], mapaCliente.get(m)[i][1], mapaCliente.get(m)[i][2], mapaCliente.get(m)[i][3], mapaCliente.get(m)[i][4], Double.parseDouble(mapaCliente.get(m)[i][5]));
+						break;
+					}
+				}
+			}
 
-
-
+  		} catch (NullPointerException mostraIgresso) {
+			System.out.print(" ");
+		}
 	}
 
 	public static void custoPoltrona() {
@@ -258,8 +266,76 @@ public class Console {
 				escolha = Character.toUpperCase(userInput.next().charAt(0));
 			}
 
-			Ingresso.imIngresso(numCPF, Cliente.getPeca(peca), getArea(Character.getNumericValue(area), num), poltronas, getSess(sess), custoCliente);
-			poltronas = "";
+			if (escolha == 'S') {
+				Ingresso.imIngresso(numCPF, Cliente.getPeca(peca), getArea(Character.getNumericValue(area), num), poltronas, getSess(sess), custoCliente);
+				poltronas = "";
+			}
+			int a = 0, b = 0, c = 0, d = 0, e = 0, f = 0;
+
+			switch (peca) {
+				case 1:
+					switch (sess) {
+						case 1:
+							mapaCliente.get(1)[a][0] = numCPF;
+							mapaCliente.get(1)[a][1] = Cliente.getPeca(peca);
+							mapaCliente.get(1)[a][2] = getArea(Character.getNumericValue(area), num);
+							mapaCliente.get(1)[a][3] = poltronas;
+							mapaCliente.get(1)[a][4] = getSess(sess);
+							mapaCliente.get(1)[a][5] = Double.toString(custoCliente);
+							a++;
+							break;
+						case 2:
+							mapaCliente.get(2)[b][0] = numCPF;
+							mapaCliente.get(2)[b][1] = Cliente.getPeca(peca);
+							mapaCliente.get(2)[b][2] = getArea(Character.getNumericValue(area), num);
+							mapaCliente.get(2)[b][3] = poltronas;
+							mapaCliente.get(2)[b][4] = getSess(sess);
+							mapaCliente.get(2)[b][5] = Double.toString(custoCliente);
+							b++;
+							break;
+						case 3:
+							mapaCliente.get(3)[c][0] = numCPF;
+							mapaCliente.get(3)[c][1] = Cliente.getPeca(peca);
+							mapaCliente.get(3)[c][2] = getArea(Character.getNumericValue(area), num);
+							mapaCliente.get(3)[c][3] = poltronas;
+							mapaCliente.get(3)[c][4] = getSess(sess);
+							mapaCliente.get(3)[c][5] = Double.toString(custoCliente);
+							c++;
+							break;
+					}
+					break;
+				case 2:
+					switch (sess) {
+						case 1:
+							mapaCliente.get(4)[a][0] = numCPF;
+							mapaCliente.get(4)[a][1] = Cliente.getPeca(peca);
+							mapaCliente.get(4)[a][2] = getArea(Character.getNumericValue(area), num);
+							mapaCliente.get(4)[a][3] = poltronas;
+							mapaCliente.get(4)[a][4] = getSess(sess);
+							mapaCliente.get(4)[a][5] = Double.toString(custoCliente);
+							d++;
+							break;
+						case 2:
+							mapaCliente.get(5)[e][0] = numCPF;
+							mapaCliente.get(5)[e][1] = Cliente.getPeca(peca);
+							mapaCliente.get(5)[e][2] = getArea(Character.getNumericValue(area), num);
+							mapaCliente.get(5)[e][3] = poltronas;
+							mapaCliente.get(5)[e][4] = getSess(sess);
+							mapaCliente.get(5)[e][5] = Double.toString(custoCliente);
+							e++;
+							break;
+						case 3:
+							mapaCliente.get(6)[f][0] = numCPF;
+							mapaCliente.get(6)[f][1] = Cliente.getPeca(peca);
+							mapaCliente.get(6)[f][2] = getArea(Character.getNumericValue(area), num);
+							mapaCliente.get(6)[f][3] = poltronas;
+							mapaCliente.get(6)[f][4] = getSess(sess);
+							mapaCliente.get(6)[f][5] = Double.toString(custoCliente);
+							f++;
+							break;
+					}
+					break;
+			}
 
 		}
 		inputPoltronaIsCanceled = false;

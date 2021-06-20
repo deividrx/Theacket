@@ -121,7 +121,7 @@ public class Cliente {
 	}
 
 	public static void peencherMapaCli() {
-		int a = 255, b = 5;
+		int a = 255, b = 6;
 		//Peça 1
 		//Sessão manhã:
 		mapaCliente.put(1,new String[a][b]);
@@ -136,6 +136,7 @@ public class Cliente {
 		mapaCliente.put(5,new String[a][b]);
 		//Sessão noite:
 		mapaCliente.put(6,new String[a][b]);
+
 
 	}
 
