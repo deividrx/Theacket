@@ -270,13 +270,13 @@ public class Console {
 				case 1:
 					switch (sess) {
 						case 1:
-							Adm.lucroSess[0]++;
+							Adm.lucroSess[0] += custoCliente;
 							break;
 						case 2:
-							Adm.lucroSess[1]++;
+							Adm.lucroSess[1] += custoCliente;
 							break;
 						case 3:
-							Adm.lucroSess[2]++;
+							Adm.lucroSess[2] += custoCliente;
 							break;
 					}
 					Adm.ingressosPeca[0]++;
@@ -285,13 +285,13 @@ public class Console {
 				case 2:
 					switch (sess) {
 						case 1:
-							Adm.lucroSess[3]++;
+							Adm.lucroSess[3] += custoCliente;
 							break;
 						case 2:
-							Adm.lucroSess[4]++;
+							Adm.lucroSess[4] += custoCliente;
 							break;
 						case 3:
-							Adm.lucroSess[5]++;
+							Adm.lucroSess[5] += custoCliente;
 							break;
 					}
 					Adm.lucroPeca[1] += custoCliente;
