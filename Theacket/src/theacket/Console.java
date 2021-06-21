@@ -77,8 +77,8 @@ public class Console {
 				if (mapaCliente.get(m)[i][0] != null) {
 					if (mapaCliente.get(m)[i][0].equals(numCPF)) {
 						Ingresso.imIngresso(mapaCliente.get(m)[i][0], mapaCliente.get(m)[i][1], mapaCliente.get(m)[i][2], mapaCliente.get(m)[i][3], mapaCliente.get(m)[i][4], Double.parseDouble(mapaCliente.get(m)[i][5]));
+						System.out.println();
 						val = true;
-						break;
 					}
 				}
 			}
@@ -971,7 +971,7 @@ public class Console {
 
 			if (Adm.poltronasSess[0] < Adm.poltronasSess[1] && Adm.poltronasSess[0] < Adm.poltronasSess[2] && Adm.poltronasSess[0] < Adm.poltronasSess[3]
 					&& Adm.poltronasSess[0] < Adm.poltronasSess[4] && Adm.poltronasSess[0] < Adm.poltronasSess[5]) {
-				sessMenor = "Manhã da peça " +pecasInf[0][0];
+				sessMenor = "Manhã da peça " + pecasInf[0][0];
 			} else if (Adm.poltronasSess[1] < Adm.poltronasSess[0] && Adm.poltronasSess[1] < Adm.poltronasSess[2] && Adm.poltronasSess[1] < Adm.poltronasSess[3]
 					&& Adm.poltronasSess[1] < Adm.poltronasSess[4] && Adm.poltronasSess[1] < Adm.poltronasSess[5]) {
 				sessMenor = "Tarde da peça " + pecasInf[0][0];
