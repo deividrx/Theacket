@@ -138,8 +138,9 @@ public class Console {
 		mostraArea(sess, peca);
 		int p = getMatrizesSess(sess, peca);
 		char area;
-		boolean val = true;
+		boolean val;
 		do {
+			val = true;
 			String areaInvalid = "Área cheia!\n";
 			System.out.print(colorize("[ÁREA]", CYAN_TEXT()) + " Informe a área desejada: ");
 			area = userInput.next().charAt(0);
