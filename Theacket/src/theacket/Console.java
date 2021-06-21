@@ -6,7 +6,6 @@ import static consoleColor.Ansi.colorize;
 import static consoleColor.Attribute.*;
 import static theacket.Cliente.*;
 
-import java.util.Arrays;
 import java.util.Scanner;
 
 public class Console {
@@ -17,6 +16,7 @@ public class Console {
 	public static boolean inputPoltronaIsCanceled;
 	public static int num;
 	public static String poltronas = "";
+	public static int a = 0, b = 0, c = 0, d = 0, e = 0, f = 0;
 
 	public static void main(String[] args) {
 		Cliente.preencherMapa();
@@ -87,7 +87,6 @@ public class Console {
 			avisoMes("Este CPF não possui ingressos comprados!\n");
 		}
 	}
-
 
 	public static void custoPoltrona() {
 		System.out.println("Poltrona Plateia A:    | R$40,00");
@@ -269,9 +268,33 @@ public class Console {
 
 			switch (peca) {
 				case 1:
+					switch (sess) {
+						case 1:
+							Adm.lucroSess[0]++;
+							break;
+						case 2:
+							Adm.lucroSess[1]++;
+							break;
+						case 3:
+							Adm.lucroSess[2]++;
+							break;
+					}
 					Adm.ingressosPeca[0]++;
+					Adm.lucroPeca[0] += custoCliente;
 					break;
 				case 2:
+					switch (sess) {
+						case 1:
+							Adm.lucroSess[3]++;
+							break;
+						case 2:
+							Adm.lucroSess[4]++;
+							break;
+						case 3:
+							Adm.lucroSess[5]++;
+							break;
+					}
+					Adm.lucroPeca[1] += custoCliente;
 					Adm.ingressosPeca[1]++;
 					break;
 			}
@@ -288,7 +311,6 @@ public class Console {
 				Ingresso.imIngresso(numCPF, Cliente.getPeca(peca), getArea(Character.getNumericValue(area), num), poltronas, getSess(sess), custoCliente);
 				poltronas = "";
 			}
-			int a = 0, b = 0, c = 0, d = 0, e = 0, f = 0;
 
 			switch (peca) {
 				case 1:
@@ -872,81 +894,166 @@ public class Console {
 	}
 
 	public static void mostraEsta() {
-		System.out.println(colorize("#Estatísticas:", title));
-
-		//Qual a peça teve mais ingressos vendidos e menos vendidos?
-
-		if (Adm.ingressosPeca[0] > Adm.ingressosPeca[1]) {
-			System.out.println("A peça \"" + Arrays.toString(pecasInf[0]) + "\" teve mais ingressos vendidos, foram " + Adm.ingressosPeca[0] + " ingressos vendidos!");
-			System.out.println("A peça \"" + Arrays.toString(pecasInf[1]) + "\" teve menos ingressos vendidos, foram " + Adm.ingressosPeca[1] + " ingressos vendidos!");
-		} else if (Adm.ingressosPeca[1] > Adm.ingressosPeca[0]) {
-			System.out.println("A peça \"" + Arrays.toString(pecasInf[1]) + "\" teve mais ingressos vendidos, foram " + Adm.ingressosPeca[1] + " ingressos vendidos!");
-			System.out.println("A peça \"" + Arrays.toString(pecasInf[0]) + "\" teve menos ingressos vendidos, foram " + Adm.ingressosPeca[0] + " ingressos vendidos!");
+		if ((Adm.ingressosPeca[1] == 0 && Adm.ingressosPeca[0] == 0)) {
+			avisoMes("Nenhum ingressso foi comprado!");
 		} else {
-			if ((Adm.ingressosPeca[1] == 0 && Adm.ingressosPeca[0] == 0)) {
-				avisoMes("Nenhum ingressso foi comprado!");
+			System.out.println(colorize("#Estatísticas:", title));
+
+			//Qual a peça teve mais ingressos vendidos e menos vendidos?
+
+			if (Adm.ingressosPeca[0] > Adm.ingressosPeca[1]) {
+				System.out.println("A peça \"" + pecasInf[0][0] + "\" teve mais ingressos vendidos, foram " + Adm.ingressosPeca[0] + " ingressos vendidos!");
+				System.out.println("A peça \"" + pecasInf[1][0] + "\" teve menos ingressos vendidos, foram " + Adm.ingressosPeca[1] + " ingressos vendidos!");
+			} else if (Adm.ingressosPeca[1] > Adm.ingressosPeca[0]) {
+				System.out.println("A peça \"" + pecasInf[1][0] + "\" teve mais ingressos vendidos, foram " + Adm.ingressosPeca[1] + " ingressos vendidos!");
+				System.out.println("A peça \"" + pecasInf[0][0] + "\" teve menos ingressos vendidos, foram " + Adm.ingressosPeca[0] + " ingressos vendidos!");
 			} else {
-				System.out.println("Ambas as peças \"" + Arrays.toString(pecasInf[1]) + "\" e \"" + Arrays.toString(pecasInf[0]) + "\" tiveram a mesma quantidade de ingressos vendidos!");
+				System.out.println("Ambas as peças \"" + pecasInf[1][0] + "\" e \"" + pecasInf[0][0] + "\" tiveram a mesma quantidade de ingressos vendidos!");
 			}
-		}
 
-		//Qual sessão teve maior e menor ocupação de poltronas?
+			//Qual sessão teve maior e menor ocupação de poltronas?
 
-		for (int m = 1; m < mapa.size(); m++) {
-			for (int i = 0; i < mapa.get(m).length; i++) {
-				for (int j = 0; j < mapa.get(m)[0].length; j++) {
-					if (m <= 14) {
-						if (mapa.get(m)[i][j] == 1) {
-							Adm.poltronasSess[0]++; // Manhã da peça 1
-						}
-					} else if (m <= 28) {
-						if (mapa.get(m)[i][j] == 1) {
-							Adm.poltronasSess[1]++; // Tarde da peça 1
-						}
-					} else if (m <= 42) {
-						if (mapa.get(m)[i][j] == 1) {
-							Adm.poltronasSess[2]++; // Noite da peça 1
-						}
-					} else if (m <= 56) {
-						if (mapa.get(m)[i][j] == 1) {
-							Adm.poltronasSess[3]++; // Manhã da peça 2
-						}
-					} else if (m <= 70) {
-						if (mapa.get(m)[i][j] == 1) {
-							Adm.poltronasSess[4]++; // Tarde da peça 2
-						}
-					} else {
-						if (mapa.get(m)[i][j] == 1) {
-							Adm.poltronasSess[5]++; // Noite da peça 2
+			for (int m = 1; m < mapa.size(); m++) {
+				for (int i = 0; i < mapa.get(m).length; i++) {
+					for (int j = 0; j < mapa.get(m)[0].length; j++) {
+						if (m <= 14) {
+							if (mapa.get(m)[i][j] == 1) {
+								Adm.poltronasSess[0]++; // Manhã da peça 1
+							}
+						} else if (m <= 28) {
+							if (mapa.get(m)[i][j] == 1) {
+								Adm.poltronasSess[1]++; // Tarde da peça 1
+							}
+						} else if (m <= 42) {
+							if (mapa.get(m)[i][j] == 1) {
+								Adm.poltronasSess[2]++; // Noite da peça 1
+							}
+						} else if (m <= 56) {
+							if (mapa.get(m)[i][j] == 1) {
+								Adm.poltronasSess[3]++; // Manhã da peça 2
+							}
+						} else if (m <= 70) {
+							if (mapa.get(m)[i][j] == 1) {
+								Adm.poltronasSess[4]++; // Tarde da peça 2
+							}
+						} else {
+							if (mapa.get(m)[i][j] == 1) {
+								Adm.poltronasSess[5]++; // Noite da peça 2
+							}
 						}
 					}
 				}
 			}
-		}
-		String sessMaior = "";
-		String sessMenor = "";
-		if (Adm.poltronasSess[0] > Adm.poltronasSess[1] && Adm.poltronasSess[0] > Adm.poltronasSess[2] && Adm.poltronasSess[0] > Adm.poltronasSess[3]
-				&& Adm.poltronasSess[0] > Adm.poltronasSess[4] && Adm.poltronasSess[0] > Adm.poltronasSess[5]) {
-			sessMaior = "Manhã da peça " + Arrays.toString(pecasInf[0]);
-		} else if (Adm.poltronasSess[1] > Adm.poltronasSess[0] && Adm.poltronasSess[1] > Adm.poltronasSess[2] && Adm.poltronasSess[1] > Adm.poltronasSess[3]
-				&& Adm.poltronasSess[1] > Adm.poltronasSess[4] && Adm.poltronasSess[1] > Adm.poltronasSess[5]) {
-			sessMaior = "Tarde da peça " + Arrays.toString(pecasInf[0]);
-		} else if (Adm.poltronasSess[2] > Adm.poltronasSess[0] && Adm.poltronasSess[2] > Adm.poltronasSess[1] && Adm.poltronasSess[2] > Adm.poltronasSess[3]
-				&& Adm.poltronasSess[2] > Adm.poltronasSess[4] && Adm.poltronasSess[2] > Adm.poltronasSess[5]) {
-			sessMaior = "Noite da peça " + Arrays.toString(pecasInf[0]);
-		} else if (Adm.poltronasSess[3] > Adm.poltronasSess[1] && Adm.poltronasSess[3] > Adm.poltronasSess[2] && Adm.poltronasSess[3] > Adm.poltronasSess[0]
-				&& Adm.poltronasSess[3] > Adm.poltronasSess[4] && Adm.poltronasSess[3] > Adm.poltronasSess[5]) {
-			sessMaior = "Manhã da peça " + Arrays.toString(pecasInf[1]);
-		} else if (Adm.poltronasSess[4] > Adm.poltronasSess[0] && Adm.poltronasSess[4] > Adm.poltronasSess[2] && Adm.poltronasSess[4] > Adm.poltronasSess[3]
-				&& Adm.poltronasSess[4] > Adm.poltronasSess[1] && Adm.poltronasSess[4] > Adm.poltronasSess[5]) {
-			sessMaior = "Tarde da peça " + Arrays.toString(pecasInf[1]);
-		} else if (Adm.poltronasSess[5] > Adm.poltronasSess[0] && Adm.poltronasSess[5] > Adm.poltronasSess[1] && Adm.poltronasSess[5] > Adm.poltronasSess[3]
-				&& Adm.poltronasSess[5] > Adm.poltronasSess[4] && Adm.poltronasSess[5] > Adm.poltronasSess[2]) {
-			sessMaior = "Noite da peça " + Arrays.toString(pecasInf[1]);
-		}
-		System.out.println("Sessão com maior ocupação: " + sessMaior);
+			String sessMaior = "";
+			String sessMenor = "";
+			if (Adm.poltronasSess[0] > Adm.poltronasSess[1] && Adm.poltronasSess[0] > Adm.poltronasSess[2] && Adm.poltronasSess[0] > Adm.poltronasSess[3]
+					&& Adm.poltronasSess[0] > Adm.poltronasSess[4] && Adm.poltronasSess[0] > Adm.poltronasSess[5]) {
+				sessMaior = "Manhã da peça " + pecasInf[0][0];
+			} else if (Adm.poltronasSess[1] > Adm.poltronasSess[0] && Adm.poltronasSess[1] > Adm.poltronasSess[2] && Adm.poltronasSess[1] > Adm.poltronasSess[3]
+					&& Adm.poltronasSess[1] > Adm.poltronasSess[4] && Adm.poltronasSess[1] > Adm.poltronasSess[5]) {
+				sessMaior = "Tarde da peça " + pecasInf[0][0];
+			} else if (Adm.poltronasSess[2] > Adm.poltronasSess[0] && Adm.poltronasSess[2] > Adm.poltronasSess[1] && Adm.poltronasSess[2] > Adm.poltronasSess[3]
+					&& Adm.poltronasSess[2] > Adm.poltronasSess[4] && Adm.poltronasSess[2] > Adm.poltronasSess[5]) {
+				sessMaior = "Noite da peça " + pecasInf[0][0];
+			} else if (Adm.poltronasSess[3] > Adm.poltronasSess[1] && Adm.poltronasSess[3] > Adm.poltronasSess[2] && Adm.poltronasSess[3] > Adm.poltronasSess[0]
+					&& Adm.poltronasSess[3] > Adm.poltronasSess[4] && Adm.poltronasSess[3] > Adm.poltronasSess[5]) {
+				sessMaior = "Manhã da peça " + pecasInf[1][0];
+			} else if (Adm.poltronasSess[4] > Adm.poltronasSess[0] && Adm.poltronasSess[4] > Adm.poltronasSess[2] && Adm.poltronasSess[4] > Adm.poltronasSess[3]
+					&& Adm.poltronasSess[4] > Adm.poltronasSess[1] && Adm.poltronasSess[4] > Adm.poltronasSess[5]) {
+				sessMaior = "Tarde da peça " + pecasInf[1][0];
+			} else if (Adm.poltronasSess[5] > Adm.poltronasSess[0] && Adm.poltronasSess[5] > Adm.poltronasSess[1] && Adm.poltronasSess[5] > Adm.poltronasSess[3]
+					&& Adm.poltronasSess[5] > Adm.poltronasSess[4] && Adm.poltronasSess[5] > Adm.poltronasSess[2]) {
+				sessMaior = "Noite da peça " + pecasInf[1][0];
+			}
 
-		//Lucro médio do teatro com todas as áreas por peça.
+			if (Adm.poltronasSess[0] < Adm.poltronasSess[1] && Adm.poltronasSess[0] < Adm.poltronasSess[2] && Adm.poltronasSess[0] < Adm.poltronasSess[3]
+					&& Adm.poltronasSess[0] < Adm.poltronasSess[4] && Adm.poltronasSess[0] < Adm.poltronasSess[5]) {
+				sessMenor = "Manhã da peça " +pecasInf[0][0];
+			} else if (Adm.poltronasSess[1] < Adm.poltronasSess[0] && Adm.poltronasSess[1] < Adm.poltronasSess[2] && Adm.poltronasSess[1] < Adm.poltronasSess[3]
+					&& Adm.poltronasSess[1] < Adm.poltronasSess[4] && Adm.poltronasSess[1] < Adm.poltronasSess[5]) {
+				sessMenor = "Tarde da peça " + pecasInf[0][0];
+			} else if (Adm.poltronasSess[2] < Adm.poltronasSess[0] && Adm.poltronasSess[2] < Adm.poltronasSess[1] && Adm.poltronasSess[2] < Adm.poltronasSess[3]
+					&& Adm.poltronasSess[2] < Adm.poltronasSess[4] && Adm.poltronasSess[2] < Adm.poltronasSess[5]) {
+				sessMenor = "Noite da peça " + pecasInf[0][0];
+			} else if (Adm.poltronasSess[3] < Adm.poltronasSess[1] && Adm.poltronasSess[3] < Adm.poltronasSess[2] && Adm.poltronasSess[3] < Adm.poltronasSess[0]
+					&& Adm.poltronasSess[3] < Adm.poltronasSess[4] && Adm.poltronasSess[3] < Adm.poltronasSess[5]) {
+				sessMenor = "Manhã da peça " + pecasInf[1][0];
+			} else if (Adm.poltronasSess[4] < Adm.poltronasSess[0] && Adm.poltronasSess[4] < Adm.poltronasSess[2] && Adm.poltronasSess[4] < Adm.poltronasSess[3]
+					&& Adm.poltronasSess[4] < Adm.poltronasSess[1] && Adm.poltronasSess[4] < Adm.poltronasSess[5]) {
+				sessMenor = "Tarde da peça " + pecasInf[1][0];
+			} else if (Adm.poltronasSess[5] < Adm.poltronasSess[0] && Adm.poltronasSess[5] < Adm.poltronasSess[1] && Adm.poltronasSess[5] < Adm.poltronasSess[3]
+					&& Adm.poltronasSess[5] < Adm.poltronasSess[4] && Adm.poltronasSess[5] < Adm.poltronasSess[2]) {
+				sessMenor = "Noite da peça " + pecasInf[1][0];
+			}
 
+			System.out.println("Sessão com maior ocupação: " + sessMaior);
+			System.out.println("Sessão com menor ocupação: " + sessMenor);
+
+			//Lucro médio do teatro com todas as áreas por peça.
+
+			double lucroMedPeca1 = Adm.lucroPeca[0] / 5;
+			double lucroMedPeca2 = Adm.lucroPeca[1] / 5;
+			System.out.println("Lucro médio da peça \"" + pecasInf[0][0] + "\" foi de R$ " + lucroMedPeca1);
+			System.out.println("Lucro médio da peça \"" + pecasInf[1][0] + "\" foi de R$ " + lucroMedPeca2);
+
+			//Qual a peça/sessão mais lucrativa e menos lucrativa
+
+			String pecaMaior, pecaMenor;
+			if (Adm.lucroPeca[0] > Adm.lucroPeca[1]) {
+				pecaMaior = pecasInf[0][0];
+				pecaMenor = pecasInf[1][0];
+			} else {
+				pecaMaior = pecasInf[1][0];
+				pecaMenor = pecasInf[0][0];
+			}
+
+			System.out.println("A peça mais lucrativa foi a " + pecaMaior);
+			System.out.println("A peça menos lucrativa foi a " + pecaMenor);
+
+			String sessMaiorL = "";
+			String sessMenorL = "";
+			if (Adm.lucroSess[0] > Adm.lucroSess[1] && Adm.lucroSess[0] > Adm.lucroSess[2] && Adm.lucroSess[0] > Adm.lucroSess[3]
+					&& Adm.lucroSess[0] > Adm.lucroSess[4] && Adm.lucroSess[0] > Adm.lucroSess[5]) {
+				sessMaiorL = "Manhã da peça " + pecasInf[0][0];
+			} else if (Adm.lucroSess[1] > Adm.lucroSess[0] && Adm.lucroSess[1] > Adm.lucroSess[2] && Adm.lucroSess[1] > Adm.lucroSess[3]
+					&& Adm.lucroSess[1] > Adm.lucroSess[4] && Adm.lucroSess[1] > Adm.lucroSess[5]) {
+				sessMaiorL = "Tarde da peça " + pecasInf[0][0];
+			} else if (Adm.lucroSess[2] > Adm.lucroSess[0] && Adm.lucroSess[2] > Adm.lucroSess[1] && Adm.lucroSess[2] > Adm.lucroSess[3]
+					&& Adm.lucroSess[2] > Adm.lucroSess[4] && Adm.lucroSess[2] > Adm.lucroSess[5]) {
+				sessMaiorL = "Noite da peça " + pecasInf[0][0];
+			} else if (Adm.lucroSess[3] > Adm.lucroSess[1] && Adm.lucroSess[3] > Adm.lucroSess[2] && Adm.lucroSess[3] > Adm.lucroSess[0]
+					&& Adm.lucroSess[3] > Adm.lucroSess[4] && Adm.lucroSess[3] > Adm.lucroSess[5]) {
+				sessMaiorL = "Manhã da peça " + pecasInf[1][0];
+			} else if (Adm.lucroSess[4] > Adm.lucroSess[0] && Adm.lucroSess[4] > Adm.lucroSess[2] && Adm.lucroSess[4] > Adm.lucroSess[3]
+					&& Adm.lucroSess[4] > Adm.lucroSess[1] && Adm.lucroSess[4] > Adm.lucroSess[5]) {
+				sessMaiorL = "Tarde da peça " + pecasInf[1][0];
+			} else if (Adm.lucroSess[5] > Adm.lucroSess[0] && Adm.lucroSess[5] > Adm.lucroSess[1] && Adm.lucroSess[5] > Adm.lucroSess[3]
+					&& Adm.lucroSess[5] > Adm.lucroSess[4] && Adm.lucroSess[5] > Adm.lucroSess[2]) {
+				sessMaiorL = "Noite da peça " + pecasInf[1][0];
+			}
+
+			if (Adm.lucroSess[0] < Adm.lucroSess[1] && Adm.lucroSess[0] < Adm.lucroSess[2] && Adm.lucroSess[0] < Adm.lucroSess[3]
+					&& Adm.lucroSess[0] < Adm.lucroSess[4] && Adm.lucroSess[0] < Adm.lucroSess[5]) {
+				sessMenorL = "Manhã da peça " +pecasInf[0][0];
+			} else if (Adm.lucroSess[1] < Adm.lucroSess[0] && Adm.lucroSess[1] < Adm.lucroSess[2] && Adm.lucroSess[1] < Adm.lucroSess[3]
+					&& Adm.lucroSess[1] < Adm.lucroSess[4] && Adm.lucroSess[1] < Adm.lucroSess[5]) {
+				sessMenorL = "Tarde da peça " + pecasInf[0][0];
+			} else if (Adm.lucroSess[2] < Adm.lucroSess[0] && Adm.lucroSess[2] < Adm.lucroSess[1] && Adm.lucroSess[2] < Adm.lucroSess[3]
+					&& Adm.lucroSess[2] < Adm.lucroSess[4] && Adm.lucroSess[2] < Adm.lucroSess[5]) {
+				sessMenorL = "Noite da peça " + pecasInf[0][0];
+			} else if (Adm.lucroSess[3] < Adm.lucroSess[1] && Adm.lucroSess[3] < Adm.lucroSess[2] && Adm.lucroSess[3] < Adm.lucroSess[0]
+					&& Adm.lucroSess[3] < Adm.lucroSess[4] && Adm.lucroSess[3] < Adm.lucroSess[5]) {
+				sessMenorL = "Manhã da peça " + pecasInf[1][0];
+			} else if (Adm.lucroSess[4] < Adm.lucroSess[0] && Adm.lucroSess[4] < Adm.lucroSess[2] && Adm.lucroSess[4] < Adm.lucroSess[3]
+					&& Adm.lucroSess[4] < Adm.lucroSess[1] && Adm.lucroSess[4] < Adm.lucroSess[5]) {
+				sessMenorL = "Tarde da peça " + pecasInf[1][0];
+			} else if (Adm.lucroSess[5] < Adm.lucroSess[0] && Adm.lucroSess[5] < Adm.lucroSess[1] && Adm.lucroSess[5] < Adm.lucroSess[3]
+					&& Adm.lucroSess[5] < Adm.lucroSess[4] && Adm.lucroSess[5] < Adm.lucroSess[2]) {
+				sessMenorL = "Noite da peça " + pecasInf[1][0];
+			}
+
+			System.out.println("Sessão com maior lucro: " + sessMaiorL);
+			System.out.println("Sessão com menor lucro: " + sessMenorL);
+		}
 	}
 }
