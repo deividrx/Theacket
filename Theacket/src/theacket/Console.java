@@ -228,12 +228,14 @@ public class Console {
 
 			if (!inputPoltronaIsCanceled) {
 				if (val) {
-					System.out.print("Deseja comprar mais poltronas dessa área: [s/n] ");
-					escolha = Character.toUpperCase(userInput.next().charAt(0));
-
-					while (escolha != 'S' && escolha != 'N') {
-						errorMes("Entrada inválida! Informe novamente: ");
+					if (area != '3' && area != '4') {
+						System.out.print("Deseja comprar mais poltronas dessa área: [s/n] ");
 						escolha = Character.toUpperCase(userInput.next().charAt(0));
+
+						while (escolha != 'S' && escolha != 'N') {
+							errorMes("Entrada inválida! Informe novamente: ");
+							escolha = Character.toUpperCase(userInput.next().charAt(0));
+						}
 					}
 				} else {
 					avisoMes("Área cheia!\n");
