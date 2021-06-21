@@ -167,7 +167,7 @@ public class Cliente {
 				areaText = "Plateia A";
 				break;
 			case 2:
-				areaText = "Planteia B";
+				areaText = "Plateia B";
 				break;
 			case 3:
 				areaText = "Frisa " + num;
