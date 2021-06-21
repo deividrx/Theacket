@@ -61,41 +61,33 @@ public class Console {
 	}
 
 	public static void mostraIngresso() {
+		String numCPF;
+		do {
+			System.out.print(colorize("[CPF]", CYAN_TEXT()) + " Informe o seu CPF: ");
+			numCPF = userInput.next();
+			if (!Cliente.validaCPF(numCPF)){
+				errorMes("CPF inválido!\n");
+			}
+
+		} while(!Cliente.validaCPF(numCPF));
+
 		boolean val = false;
 		for (int m = 1; m <= mapaCliente.size(); m++) {
 			for (int i = 0; i < mapaCliente.get(m).length; i++) {
 				if (mapaCliente.get(m)[i][0] != null) {
-					val = true;
-					break;
-				}
-			}
-		}
-
-		if (val) {
-			String numCPF;
-			do {
-				System.out.print(colorize("[CPF]", CYAN_TEXT()) + " Informe o seu CPF: ");
-				numCPF = userInput.next();
-
-				if (!Cliente.validaCPF(numCPF)){
-					errorMes("CPF inválido!\n");
-				}
-
-			} while(!Cliente.validaCPF(numCPF));
-
-			for (int m = 1; m <= mapaCliente.size(); m++) {
-				for (int i = 0; i < mapaCliente.get(m).length; i++) {
-					if (mapaCliente.get(m)[i][0] != null) {
-						if (mapaCliente.get(m)[i][0].equals(numCPF)) {
-							Ingresso.imIngresso(mapaCliente.get(m)[i][0], mapaCliente.get(m)[i][1], mapaCliente.get(m)[i][2], mapaCliente.get(m)[i][3], mapaCliente.get(m)[i][4], Double.parseDouble(mapaCliente.get(m)[i][5]));
-							break;
-						}
+					if (mapaCliente.get(m)[i][0].equals(numCPF)) {
+						Ingresso.imIngresso(mapaCliente.get(m)[i][0], mapaCliente.get(m)[i][1], mapaCliente.get(m)[i][2], mapaCliente.get(m)[i][3], mapaCliente.get(m)[i][4], Double.parseDouble(mapaCliente.get(m)[i][5]));
+						val = true;
+						break;
 					}
 				}
 			}
 		}
-
+		if (!val) {
+			avisoMes("Este CPF não possui ingressos comprados!");
+		}
 	}
+
 
 	public static void custoPoltrona() {
 		System.out.println("Poltrona Plateia A:    | R$40,00");
