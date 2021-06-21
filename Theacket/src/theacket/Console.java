@@ -883,7 +883,7 @@ public class Console {
 			System.out.println("A peça \"" + Arrays.toString(pecasInf[1]) + "\" teve mais ingressos vendidos, foram " + Adm.ingressosPeca[1] + " ingressos vendidos!");
 			System.out.println("A peça \"" + Arrays.toString(pecasInf[0]) + "\" teve menos ingressos vendidos, foram " + Adm.ingressosPeca[0] + " ingressos vendidos!");
 		} else {
-			if ((Adm.ingressosPeca[1] - Adm.ingressosPeca[0]) == 0) {
+			if ((Adm.ingressosPeca[1] == 0 && Adm.ingressosPeca[0] == 0)) {
 				avisoMes("Nenhum ingressso foi comprado!");
 			} else {
 				System.out.println("Ambas as peças \"" + Arrays.toString(pecasInf[1]) + "\" e \"" + Arrays.toString(pecasInf[0]) + "\" tiveram a mesma quantidade de ingressos vendidos!");
@@ -947,7 +947,6 @@ public class Console {
 		System.out.println("Sessão com maior ocupação: " + sessMaior);
 
 		//Lucro médio do teatro com todas as áreas por peça.
-
 
 	}
 }
