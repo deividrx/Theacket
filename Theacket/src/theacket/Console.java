@@ -300,7 +300,7 @@ public class Console {
 					break;
 			}
 
-			System.out.print(colorize("[INGRESSO] ", CYAN_TEXT()) + "Deseja imprimir o ingresso agora? [s/n]");
+			System.out.print(colorize("[INGRESSO] ", CYAN_TEXT()) + "Deseja imprimir o ingresso agora? [s/n] ");
 			escolha = Character.toUpperCase(userInput.next().charAt(0));
 
 			while (escolha != 'S' && escolha != 'N') {
@@ -946,7 +946,6 @@ public class Console {
 				}
 			}
 			String sessMaior = "";
-			String sessMenor = "";
 			if (Adm.poltronasSess[0] > Adm.poltronasSess[1] && Adm.poltronasSess[0] > Adm.poltronasSess[2] && Adm.poltronasSess[0] > Adm.poltronasSess[3]
 					&& Adm.poltronasSess[0] > Adm.poltronasSess[4] && Adm.poltronasSess[0] > Adm.poltronasSess[5]) {
 				sessMaior = "Manhã da peça " + pecasInf[0][0];
@@ -966,6 +965,9 @@ public class Console {
 					&& Adm.poltronasSess[5] > Adm.poltronasSess[4] && Adm.poltronasSess[5] > Adm.poltronasSess[2]) {
 				sessMaior = "Noite da peça " + pecasInf[1][0];
 			}
+
+			System.out.println("Sessão com maior ocupação: " + sessMaior);
+			String sessMenor = "";
 
 			if (Adm.poltronasSess[0] < Adm.poltronasSess[1] && Adm.poltronasSess[0] < Adm.poltronasSess[2] && Adm.poltronasSess[0] < Adm.poltronasSess[3]
 					&& Adm.poltronasSess[0] < Adm.poltronasSess[4] && Adm.poltronasSess[0] < Adm.poltronasSess[5]) {
@@ -987,7 +989,6 @@ public class Console {
 				sessMenor = "Noite da peça " + pecasInf[1][0];
 			}
 
-			System.out.println("Sessão com maior ocupação: " + sessMaior);
 			System.out.println("Sessão com menor ocupação: " + sessMenor);
 
 			//Lucro médio do teatro com todas as áreas por peça.
