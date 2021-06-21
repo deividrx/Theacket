@@ -882,10 +882,12 @@ public class Console {
 		} else if (Adm.ingressosPeca[1] > Adm.ingressosPeca[0]) {
 			System.out.println("A peça \"" + Arrays.toString(pecasInf[1]) + "\" teve mais ingressos vendidos, foram " + Adm.ingressosPeca[1] + " ingressos vendidos!");
 			System.out.println("A peça \"" + Arrays.toString(pecasInf[0]) + "\" teve menos ingressos vendidos, foram " + Adm.ingressosPeca[0] + " ingressos vendidos!");
-		} else if (Adm.ingressosPeca[1] == Adm.ingressosPeca[0]) {
-			System.out.println("Ambas as peças \"" + Arrays.toString(pecasInf[1]) + "\" e \"" + Arrays.toString(pecasInf[0]) + "\" tiveram a mesma quantidade de ingressos vendidos!");
 		} else {
-			avisoMes("Nenhum ingressso foi comprado!");
+			if ((Adm.ingressosPeca[1] - Adm.ingressosPeca[0]) == 0) {
+				avisoMes("Nenhum ingressso foi comprado!");
+			} else {
+				System.out.println("Ambas as peças \"" + Arrays.toString(pecasInf[1]) + "\" e \"" + Arrays.toString(pecasInf[0]) + "\" tiveram a mesma quantidade de ingressos vendidos!");
+			}
 		}
 
 		//Qual sessão teve maior e menor ocupação de poltronas?
@@ -894,17 +896,29 @@ public class Console {
 			for (int i = 0; i < mapa.get(m).length; i++) {
 				for (int j = 0; j < mapa.get(m)[0].length; j++) {
 					if (m <= 14) {
-						Adm.poltronasSess[0]++; // Manhã da peça 1
+						if (mapa.get(m)[i][j] == 1) {
+							Adm.poltronasSess[0]++; // Manhã da peça 1
+						}
 					} else if (m <= 28) {
-						Adm.poltronasSess[1]++; // Tarde da peça 1
+						if (mapa.get(m)[i][j] == 1) {
+							Adm.poltronasSess[1]++; // Tarde da peça 1
+						}
 					} else if (m <= 42) {
-						Adm.poltronasSess[2]++; // Noite da peça 1
+						if (mapa.get(m)[i][j] == 1) {
+							Adm.poltronasSess[2]++; // Noite da peça 1
+						}
 					} else if (m <= 56) {
-						Adm.poltronasSess[3]++; // Manhã da peça 2
+						if (mapa.get(m)[i][j] == 1) {
+							Adm.poltronasSess[3]++; // Manhã da peça 2
+						}
 					} else if (m <= 70) {
-						Adm.poltronasSess[4]++; // Tarde da peça 2
+						if (mapa.get(m)[i][j] == 1) {
+							Adm.poltronasSess[4]++; // Tarde da peça 2
+						}
 					} else {
-						Adm.poltronasSess[5]++; // Noite da peça 2
+						if (mapa.get(m)[i][j] == 1) {
+							Adm.poltronasSess[5]++; // Noite da peça 2
+						}
 					}
 				}
 			}
