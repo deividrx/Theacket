@@ -26,7 +26,7 @@ public class Console {
 		String comando;
 		do {
 			System.out.print(colorize("Cliente", GREEN_TEXT()) + "@" + colorize("Theacket", BLUE_TEXT()) + "~$ ");
-			comando = userInput.next();
+			comando = userInput.next().toLowerCase();
 
 			switch (comando) {
 				case "comprar":
@@ -61,16 +61,27 @@ public class Console {
 	}
 
 	public static void mostraIngresso() {
-		String numCPF;
-		do {
-			System.out.print(colorize("[CPF]", CYAN_TEXT()) + " Informe o seu CPF: ");
-			numCPF = userInput.next();
-
-			if (!Cliente.validaCPF(numCPF)){
-				errorMes("CPF inválido!\n");
+		boolean val = false;
+		for (int m = 1; m <= mapaCliente.size(); m++) {
+			for (int i = 0; i < mapaCliente.get(m).length; i++) {
+				if (mapaCliente.get(m)[i][0] != null) {
+					val = true;
+					break;
+				}
 			}
+		}
 
-		} while(!Cliente.validaCPF(numCPF));
+		if (val) {
+			String numCPF;
+			do {
+				System.out.print(colorize("[CPF]", CYAN_TEXT()) + " Informe o seu CPF: ");
+				numCPF = userInput.next();
+
+				if (!Cliente.validaCPF(numCPF)){
+					errorMes("CPF inválido!\n");
+				}
+
+			} while(!Cliente.validaCPF(numCPF));
 
 			for (int m = 1; m <= mapaCliente.size(); m++) {
 				for (int i = 0; i < mapaCliente.get(m).length; i++) {
@@ -82,6 +93,7 @@ public class Console {
 					}
 				}
 			}
+		}
 
 	}
 
@@ -870,6 +882,8 @@ public class Console {
 	public static void mostraEsta() {
 		System.out.println(colorize("#Estatísticas:", title));
 
+		//Qual a peça teve mais ingressos vendidos e menos vendidos?
+
 		if (Adm.ingressosPeca[0] > Adm.ingressosPeca[1]) {
 			System.out.println("A peça \"" + Arrays.toString(pecasInf[0]) + "\" teve mais ingressos vendidos, foram " + Adm.ingressosPeca[0] + " ingressos vendidos!");
 			System.out.println("A peça \"" + Arrays.toString(pecasInf[1]) + "\" teve menos ingressos vendidos, foram " + Adm.ingressosPeca[1] + " ingressos vendidos!");
@@ -881,6 +895,8 @@ public class Console {
 		} else {
 			avisoMes("Nenhum ingressso foi comprado!");
 		}
+
+		//Qual sessão teve maior e menor ocupação de poltronas?
 
 		for (int m = 1; m < mapa.size(); m++) {
 			for (int i = 0; i < mapa.get(m).length; i++) {
@@ -901,27 +917,31 @@ public class Console {
 				}
 			}
 		}
-		String sess = "";
-
+		String sessMaior = "";
+		String sessMenor = "";
 		if (Adm.poltronasSess[0] > Adm.poltronasSess[1] && Adm.poltronasSess[0] > Adm.poltronasSess[2] && Adm.poltronasSess[0] > Adm.poltronasSess[3]
 				&& Adm.poltronasSess[0] > Adm.poltronasSess[4] && Adm.poltronasSess[0] > Adm.poltronasSess[5]) {
-			sess = "Manhã da peça " + Arrays.toString(pecasInf[0]);
+			sessMaior = "Manhã da peça " + Arrays.toString(pecasInf[0]);
 		} else if (Adm.poltronasSess[1] > Adm.poltronasSess[0] && Adm.poltronasSess[1] > Adm.poltronasSess[2] && Adm.poltronasSess[1] > Adm.poltronasSess[3]
 				&& Adm.poltronasSess[1] > Adm.poltronasSess[4] && Adm.poltronasSess[1] > Adm.poltronasSess[5]) {
-			sess = "Tarde da peça " + Arrays.toString(pecasInf[0]);
+			sessMaior = "Tarde da peça " + Arrays.toString(pecasInf[0]);
 		} else if (Adm.poltronasSess[2] > Adm.poltronasSess[0] && Adm.poltronasSess[2] > Adm.poltronasSess[1] && Adm.poltronasSess[2] > Adm.poltronasSess[3]
 				&& Adm.poltronasSess[2] > Adm.poltronasSess[4] && Adm.poltronasSess[2] > Adm.poltronasSess[5]) {
-			sess = "Noite da peça " + Arrays.toString(pecasInf[0]);
+			sessMaior = "Noite da peça " + Arrays.toString(pecasInf[0]);
 		} else if (Adm.poltronasSess[3] > Adm.poltronasSess[1] && Adm.poltronasSess[3] > Adm.poltronasSess[2] && Adm.poltronasSess[3] > Adm.poltronasSess[0]
 				&& Adm.poltronasSess[3] > Adm.poltronasSess[4] && Adm.poltronasSess[3] > Adm.poltronasSess[5]) {
-			sess = "Manhã da peça " + Arrays.toString(pecasInf[1]);
+			sessMaior = "Manhã da peça " + Arrays.toString(pecasInf[1]);
 		} else if (Adm.poltronasSess[4] > Adm.poltronasSess[0] && Adm.poltronasSess[4] > Adm.poltronasSess[2] && Adm.poltronasSess[4] > Adm.poltronasSess[3]
 				&& Adm.poltronasSess[4] > Adm.poltronasSess[1] && Adm.poltronasSess[4] > Adm.poltronasSess[5]) {
-			sess = "Tarde da peça " + Arrays.toString(pecasInf[1]);
+			sessMaior = "Tarde da peça " + Arrays.toString(pecasInf[1]);
 		} else if (Adm.poltronasSess[5] > Adm.poltronasSess[0] && Adm.poltronasSess[5] > Adm.poltronasSess[1] && Adm.poltronasSess[5] > Adm.poltronasSess[3]
 				&& Adm.poltronasSess[5] > Adm.poltronasSess[4] && Adm.poltronasSess[5] > Adm.poltronasSess[2]) {
-			sess = "Noite da peça " + Arrays.toString(pecasInf[1]);
+			sessMaior = "Noite da peça " + Arrays.toString(pecasInf[1]);
 		}
-		System.out.println("Sessão com maior ocupação: " + sess);
+		System.out.println("Sessão com maior ocupação: " + sessMaior);
+
+		//Lucro médio do teatro com todas as áreas por peça.
+
+
 	}
 }
