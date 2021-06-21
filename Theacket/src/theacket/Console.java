@@ -84,7 +84,7 @@ public class Console {
 			}
 		}
 		if (!val) {
-			avisoMes("Este CPF não possui ingressos comprados!");
+			avisoMes("Este CPF não possui ingressos comprados!\n");
 		}
 	}
 
