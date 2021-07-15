@@ -29,8 +29,7 @@ public class Ingresso {
 	}
 	
 	public static void imIngresso(String cpf, String peca, String area, String poltronas, String sessao, Double valor){
-		
-		
+
 		System.out.println("|------------( INGRESSO )-----------");
 		System.out.println("|-----------------------------------");
 		System.out.println("|(CPF):                             ");
